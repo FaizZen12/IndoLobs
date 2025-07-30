@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Pesanan - Lobster Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tracking-main {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        .tracking-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .tracking-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .tracking-header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .order-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .order-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .info-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .info-item h3 {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+        .info-item p {
+            color: #666;
+            margin: 0;
+            font-weight: 600;
+        }
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ddd;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 30px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -7px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ddd;
+        }
+        .timeline-item.completed::before {
+            background: #28a745;
+        }
+        .timeline-item.active::before {
+            background: #f5b301;
+            box-shadow: 0 0 0 4px rgba(245, 179, 1, 0.3);
+        }
+        .timeline-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .timeline-content h4 {
+            color: #333;
+            margin: 0 0 10px 0;
+        }
+        .timeline-content p {
+            color: #666;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .timeline-date {
+            color: #999;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-confirmed { background: #d1ecf1; color: #0c5460; }
+        .status-shipping { background: #d4edda; color: #155724; }
+        .status-delivered { background: #d1e7dd; color: #0f5132; }
+        .order-items {
+            margin-top: 20px;
+        }
+        .item-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .item-image {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .item-details h4 {
+            color: #333;
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+        }
+        .item-details p {
+            color: #666;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .tracking-search {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .search-form {
+            display: flex;
+            gap: 15px;
+        }
+        .search-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .search-btn {
+            background: #f5b301;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .search-btn:hover {
+            background: #e6a800;
+        }
+        @media (max-width: 768px) {
+            .order-info {
+                grid-template-columns: 1fr;
+            }
+            .search-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">🦞 IndoLobs</div>
+        <div class="nav-links">
+            <a href="index.html">Beranda</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="forum.html">Komunitas</a>
+            <a href="news.html">Edukasi</a>
+            <div id="nav-user">
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="tracking-main">
+        <div class="tracking-container">
+            <div class="tracking-header">
+                <h1>📦 Tracking Pesanan</h1>
+                <p>Lacak status pesanan lobster Anda</p>
+            </div>
+
+            <div class="tracking-search">
+                <form class="search-form" onsubmit="searchOrder(event)">
+                    <input type="text" class="search-input" id="orderIdInput" placeholder="Masukkan Order ID (contoh: ORD-1234567890)">
+                    <button type="submit" class="search-btn">🔍 Cari Pesanan</button>
+                </form>
+            </div>
+
+            <div id="orderTracking" style="display: none;">
+                <div class="order-card">
+                    <div class="status-badge" id="statusBadge">Status: Loading...</div>
+                    
+                    <div class="order-info">
+                        <div class="info-item">
+                            <h3>Order ID</h3>
+                            <p id="orderId">Loading...</p>
+                        </div>
+                        <div class="info-item">
+                            <h3>Tanggal Pesanan</h3>
+                            <p id="orderDate">Loading...</p>
+                        </div>
+                        <div class="info-item">
+                            <h3>Total Pembayaran</h3>
+                            <p id="orderTotal">Loading...</p>
+                        </div>
+                        <div class="info-item">
+                            <h3>Estimasi Tiba</h3>
+                            <p id="estimatedArrival">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="order-items">
+                        <h3>📦 Item Pesanan</h3>
+                        <div id="orderItems">Loading...</div>
+                    </div>
+
+                    <div class="timeline" id="orderTimeline">
+                        <!-- Timeline will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🦞 IndoLobs</h3>
+                    <p>Platform marketplace lobster terpercaya dengan transparansi penuh melalui live camera.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="marketplace.html">Marketplace</a></li>
+                        <li><a href="forum.html">Komunitas</a></li>
+                        <li><a href="news.html">Edukasi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Dukungan</h4>
+                    <ul>
+                        <li><a href="#">Bantuan</a></li>
+                        <li><a href="#">Kontak</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Ikuti Kami</h4>
+                    <div class="social-links">
+                        <a href="#">📘 Facebook</a>
+                        <a href="#">📷 Instagram</a>
+                        <a href="#">🐦 Twitter</a>
+                        <a href="#">📺 YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 IndoLobs. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const navUser = document.getElementById('nav-user');
+            if (user) {
+                navUser.innerHTML = `<span>👋 Hai, ${user.name}</span>
+                    <button id="logoutBtn" class="logout-btn">Logout</button>`;
+                document.getElementById("logoutBtn").addEventListener("click", function() {
+                    localStorage.removeItem("currentUser");
+                    window.location.href = "login.html";
+                });
+            } else {
+                navUser.innerHTML = `<a href="login.html" class="login-btn">Login</a>`;
+            }
+
+            // Load demo order if available
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            if (orderId) {
+                document.getElementById('orderIdInput').value = orderId;
+                searchOrder();
+            }
+        });
+
+        function searchOrder(event) {
+            if (event) event.preventDefault();
+            
+            const orderId = document.getElementById('orderIdInput').value.trim();
+            if (!orderId) {
+                alert('Silakan masukkan Order ID!');
+                return;
+            }
+
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const order = orders.find(o => o.id === orderId);
+            
+            if (order) {
+                displayOrder(order);
+            } else {
+                alert('Order ID tidak ditemukan!');
+            }
+        }
+
+        function displayOrder(order) {
+            document.getElementById('orderTracking').style.display = 'block';
+            
+            // Update order info
+            document.getElementById('orderId').textContent = order.id;
+            document.getElementById('orderDate').textContent = new Date(order.createdAt).toLocaleDateString('id-ID');
+            document.getElementById('orderTotal').textContent = `Rp ${order.total.toLocaleString()}`;
+            
+            // Calculate estimated arrival
+            const deliveryDays = order.shipping.method.includes('Express') ? 2 : 
+                               order.shipping.method.includes('Air') ? 5 : 14;
+            const arrivalDate = new Date(order.createdAt);
+            arrivalDate.setDate(arrivalDate.getDate() + deliveryDays);
+            document.getElementById('estimatedArrival').textContent = arrivalDate.toLocaleDateString('id-ID');
+
+            // Update status badge
+            const statusBadge = document.getElementById('statusBadge');
+            statusBadge.textContent = `Status: ${getStatusText(order.status)}`;
+            statusBadge.className = `status-badge status-${order.status}`;
+
+            // Display order items
+            const orderItems = document.getElementById('orderItems');
+            orderItems.innerHTML = order.items.map(item => `
+                <div class="item-card">
+                    <img src="${item.image}" alt="${item.name}" class="item-image">
+                    <div class="item-details">
+                        <h4>${item.name}</h4>
+                        <p>${item.description}</p>
+                        <p>Qty: ${item.quantity} | Rp ${item.price.toLocaleString()}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            // Display timeline
+            displayTimeline(order);
+        }
+
+        function displayTimeline(order) {
+            const timeline = document.getElementById('orderTimeline');
+            const timelineSteps = [
+                {
+                    title: 'Pesanan Dibuat',
+                    description: 'Pesanan telah berhasil dibuat',
+                    status: 'completed',
+                    date: order.createdAt
+                },
+                {
+                    title: 'Pembayaran Dikonfirmasi',
+                    description: 'Pembayaran telah diverifikasi',
+                    status: order.status === 'payment_confirmed' || order.status === 'proof_uploaded' || order.status === 'processing' || order.status === 'shipping' || order.status === 'delivered' ? 'completed' : 'pending',
+                    date: order.status !== 'pending' ? new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString() : null
+                },
+                {
+                    title: 'Persiapan Pengiriman',
+                    description: 'Lobster sedang dipersiapkan untuk pengiriman',
+                    status: order.status === 'processing' || order.status === 'shipping' || order.status === 'delivered' ? 'completed' : 'pending',
+                    date: order.status === 'processing' || order.status === 'shipping' || order.status === 'delivered' ? new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString() : null
+                },
+                {
+                    title: 'Dalam Pengiriman',
+                    description: 'Lobster sedang dalam perjalanan ke tujuan',
+                    status: order.status === 'shipping' || order.status === 'delivered' ? 'completed' : 'pending',
+                    date: order.status === 'shipping' || order.status === 'delivered' ? new Date(Date.now() - 30 * 60 * 1000).toISOString() : null
+                },
+                {
+                    title: 'Pesanan Selesai',
+                    description: 'Lobster telah sampai di tujuan',
+                    status: order.status === 'delivered' ? 'completed' : 'pending',
+                    date: order.status === 'delivered' ? new Date().toISOString() : null
+                }
+            ];
+
+            timeline.innerHTML = timelineSteps.map((step, index) => `
+                <div class="timeline-item ${step.status}">
+                    <div class="timeline-content">
+                        <h4>${step.title}</h4>
+                        <p>${step.description}</p>
+                        ${step.date ? `<div class="timeline-date">${new Date(step.date).toLocaleString('id-ID')}</div>` : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'pending': 'Menunggu Pembayaran',
+                'payment_confirmed': 'Pembayaran Dikonfirmasi',
+                'proof_uploaded': 'Bukti Pembayaran Diupload',
+                'processing': 'Persiapan Pengiriman',
+                'shipping': 'Dalam Pengiriman',
+                'delivered': 'Pesanan Selesai'
+            };
+            return statusMap[status] || 'Unknown';
+        }
+    </script>
+</body>
+</html> 

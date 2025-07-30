@@ -391,25 +391,31 @@ function updateOrderStatus(orderId, status) {
 // Cart management functions
 function addToCart(productId, quantity = 1) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingItem = cart.find(item => item.productId === productId);
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const product = products.find(p => p.id === productId);
     
-    if (existingItem) {
-        existingItem.quantity += quantity;
-    } else {
-        const product = getProductById(productId);
-        if (product) {
+    if (product) {
+        const farmer = users.find(u => u.email === product.farmerId);
+        const existingItem = cart.find(item => item.id === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
             cart.push({
-                productId: productId,
+                id: product.id,
                 name: product.name,
+                description: product.description,
                 price: product.price,
                 image: product.image,
                 quantity: quantity,
-                farmerId: product.farmerId
+                farmerId: product.farmerId,
+                farmerName: farmer ? farmer.name : 'Unknown Farmer'
             });
         }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        return cart;
     }
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
     return cart;
 }
 
@@ -419,11 +425,11 @@ function getCart() {
 
 function updateCartItem(productId, quantity) {
     let cart = getCart();
-    const item = cart.find(item => item.productId === productId);
+    const item = cart.find(item => item.id === productId);
     
     if (item) {
         if (quantity <= 0) {
-            cart = cart.filter(item => item.productId !== productId);
+            cart = cart.filter(item => item.id !== productId);
         } else {
             item.quantity = quantity;
         }

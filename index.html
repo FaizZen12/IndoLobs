@@ -14,6 +14,10 @@
             <a href="marketplace.html">Marketplace</a>
             <a href="forum.html">Komunitas</a>
             <a href="news.html">Edukasi</a>
+            <a href="keranjang.html" class="cart-icon">
+                🛒 Keranjang
+                <span class="cart-badge" id="cartCount">0</span>
+            </a>
             <a href="dashboard.html">Dashboard</a>
         </div>
         <div class="nav-user" id="nav-user"></div>
@@ -320,7 +324,20 @@
             } else {
                 navUser.innerHTML = `<a href="login.html" class="login-btn">Login</a>`;
             }
+            
+            // Update cart count
+            updateCartCount();
         });
+        
+        function updateCartCount() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.getElementById('cartCount');
+            if (cartCount) {
+                cartCount.textContent = totalItems;
+                cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+        }
     </script>
 </body>
 </html>
