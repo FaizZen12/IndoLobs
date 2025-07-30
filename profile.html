@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pengguna - Lobster Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .profile-header {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #267a4a;
+        }
+        .profile-info h1 {
+            color: #267a4a;
+            margin-bottom: 0.5rem;
+        }
+        .profile-type {
+            display: inline-block;
+            background: #f5b301;
+            color: #1a3c2b;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .profile-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #267a4a;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .profile-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: #fff;
+            border-radius: 16px;
+            padding: 1rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            color: #666;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: #267a4a;
+            color: #fff;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .content-section {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .history-item {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .history-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .history-info h3 {
+            color: #267a4a;
+            margin-bottom: 0.5rem;
+        }
+        .history-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .history-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-cancelled {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .post-item {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .post-category {
+            background: #267a4a;
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .post-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .post-content {
+            color: #1e3a3a;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .shop-item {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .shop-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .shop-info h3 {
+            color: #267a4a;
+            margin-bottom: 0.5rem;
+        }
+        .shop-meta {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .shop-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+        .edit-profile-btn {
+            background: #267a4a;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .edit-profile-btn:hover {
+            background: #1e3a3a;
+        }
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-stats {
+                justify-content: center;
+            }
+            .profile-tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-navbar">
+        <div class="nav-logo">🦞 IndoLobs</div>
+        <div class="nav-links">
+            <a href="index.html">Beranda</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="forum.html">Komunitas</a>
+            <a href="news.html">Edukasi</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+        <div class="nav-user" id="nav-user"></div>
+    </nav>
+    
+    <main class="profile-container">
+        <!-- Profile Header -->
+        <section class="profile-header">
+            <div class="profile-avatar">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80" alt="Profile Avatar" class="profile-avatar">
+            </div>
+            <div class="profile-info">
+                <h1 id="profile-name">Loading...</h1>
+                <p class="user-type" id="profile-type">Loading...</p>
+                <p class="user-location" id="profile-email">Loading...</p>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="followers-count">0</div>
+                        <div class="stat-label">Pengikut</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="following-count">0</div>
+                        <div class="stat-label">Mengikuti</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="transactions-count">0</div>
+                        <div class="stat-label">Transaksi</div>
+                    </div>
+                </div>
+                <button class="edit-profile-btn" onclick="editProfile()">✏️ Edit Profil</button>
+            </div>
+        </section>
+        
+        <!-- Profile Tabs -->
+        <section class="profile-tabs">
+            <button class="tab-btn active" onclick="showTab('history')">📋 Riwayat</button>
+            <button class="tab-btn" onclick="showTab('posts')">📝 Postingan</button>
+            <button class="tab-btn" onclick="showTab('shops')">🏪 Toko</button>
+            <button class="tab-btn" onclick="showTab('settings')">⚙️ Pengaturan</button>
+        </section>
+        
+        <!-- History Tab -->
+        <div id="history" class="tab-content active">
+            <div class="content-section">
+                <h2>📋 Riwayat Transaksi</h2>
+                <div id="history-list">
+                    <!-- Diisi JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Posts Tab -->
+        <div id="posts" class="tab-content">
+            <div class="content-section">
+                <h2>📝 Postingan Komunitas</h2>
+                <div id="posts-list">
+                    <!-- Diisi JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Shops Tab -->
+        <div id="shops" class="tab-content">
+            <div class="content-section">
+                <h2>🏪 Toko yang Dimiliki</h2>
+                <div id="shops-list">
+                    <!-- Diisi JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <div class="content-section">
+                <h2>⚙️ Pengaturan Akun</h2>
+                <form id="settings-form">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                        <div>
+                            <label>Nama Lengkap</label>
+                            <input type="text" id="settings-name" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                        </div>
+                        <div>
+                            <label>Email</label>
+                            <input type="email" id="settings-email" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label>Nomor Telepon</label>
+                        <input type="tel" id="settings-phone" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label>Alamat</label>
+                        <textarea id="settings-address" rows="3" style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;"></textarea>
+                    </div>
+                    <button type="submit" style="background: #267a4a; color: #fff; border: none; padding: 1rem 2rem; border-radius: 8px; font-weight: bold; cursor: pointer;">
+                        💾 Simpan Perubahan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                alert('Silakan login terlebih dahulu');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Update navbar
+            const navUser = document.getElementById('nav-user');
+            navUser.innerHTML = `<span>👋 Hai, ${user.name}</span>
+                <button id="logoutBtn" class="logout-btn">Logout</button>`;
+            document.getElementById("logoutBtn").addEventListener("click", function() {
+                localStorage.removeItem("currentUser");
+                window.location.href = "login.html";
+            });
+            
+            // Update profile header
+            const profileHeader = document.querySelector('.profile-header');
+            if (profileHeader) {
+                profileHeader.innerHTML = `
+                    <div class="profile-avatar">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80" alt="${user.name}">
+                    </div>
+                    <div class="profile-info">
+                        <h1>${user.name}</h1>
+                        <p class="user-type">${user.type === 'farmer' ? '🦞 Peternak' : '🛒 Pembeli'}</p>
+                        <p class="user-location">📍 ${user.address}</p>
+                    </div>
+                `;
+            }
+            
+            // Load profile data
+            loadProfileData(user);
+        });
+
+        function loadProfileData(user) {
+            // Update profile header
+            document.getElementById('profile-name').textContent = user.name;
+            document.getElementById('profile-email').textContent = user.email;
+            
+            if (user.type === 'buyer') {
+                document.getElementById('profile-type').textContent = '🛒 Pembeli';
+                document.getElementById('followers-count').textContent = '12';
+                document.getElementById('following-count').textContent = '8';
+                document.getElementById('transactions-count').textContent = '5';
+            } else {
+                document.getElementById('profile-type').textContent = '👨‍🌾 Peternak';
+                document.getElementById('followers-count').textContent = '450';
+                document.getElementById('following-count').textContent = '25';
+                document.getElementById('transactions-count').textContent = '120';
+            }
+            
+            // Load tab content
+            loadHistory(user);
+            loadPosts(user);
+            loadShops(user);
+            loadSettings(user);
+        }
+
+        function loadHistory(user) {
+            const historyList = document.getElementById('history-list');
+            
+            if (user.type === 'buyer') {
+                historyList.innerHTML = `
+                    <div class="history-item">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=100&q=80" alt="Lobster Air Tawar">
+                        <div class="history-info">
+                            <h3>Lobster Air Tawar Super</h3>
+                            <div class="history-meta">Rp 650.000 • 2 kg • 15 Jan 2024</div>
+                            <span class="history-status status-completed">Selesai</span>
+                        </div>
+                    </div>
+                    <div class="history-item">
+                        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=100&q=80" alt="Lobster Mutiara">
+                        <div class="history-info">
+                            <h3>Lobster Mutiara Premium</h3>
+                            <div class="history-meta">Rp 1.200.000 • 1 kg • 10 Jan 2024</div>
+                            <span class="history-status status-pending">Dalam Pengiriman</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                historyList.innerHTML = `
+                    <div class="history-item">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=100&q=80" alt="Lobster Air Tawar">
+                        <div class="history-info">
+                            <h3>Lobster Air Tawar Super</h3>
+                            <div class="history-meta">Rp 650.000 • 2 kg • 15 Jan 2024</div>
+                            <span class="history-status status-completed">Terjual</span>
+                        </div>
+                    </div>
+                    <div class="history-item">
+                        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=100&q=80" alt="Lobster Mutiara">
+                        <div class="history-info">
+                            <h3>Lobster Mutiara Premium</h3>
+                            <div class="history-meta">Rp 1.200.000 • 1 kg • 10 Jan 2024</div>
+                            <span class="history-status status-pending">Menunggu Pembayaran</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function loadPosts(user) {
+            const postsList = document.getElementById('posts-list');
+            
+            if (user.type === 'farmer') {
+                postsList.innerHTML = `
+                    <div class="post-item">
+                        <div class="post-header">
+                            <span class="post-category">Teknik Budidaya</span>
+                            <span class="post-date">2 hari yang lalu</span>
+                        </div>
+                        <div class="post-content">
+                            "Tips budidaya lobster air tawar yang efektif: Pastikan kualitas air selalu terjaga dengan pH 6.5-8.0 dan suhu optimal 24-28°C. Pakan organik memberikan hasil yang lebih baik untuk pertumbuhan lobster."
+                        </div>
+                        <div class="post-actions">
+                            <span>👍 24</span>
+                            <span>💬 8</span>
+                            <span>📤 Bagikan</span>
+                        </div>
+                    </div>
+                    <div class="post-item">
+                        <div class="post-header">
+                            <span class="post-category">Pemasaran</span>
+                            <span class="post-date">1 minggu yang lalu</span>
+                        </div>
+                        <div class="post-content">
+                            "Strategi pemasaran lobster untuk pasar ekspor: Fokus pada kualitas dan sertifikasi. Live camera membantu membangun kepercayaan pembeli internasional."
+                        </div>
+                        <div class="post-actions">
+                            <span>👍 18</span>
+                            <span>💬 5</span>
+                            <span>📤 Bagikan</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                postsList.innerHTML = '<p style="text-align: center; color: #666;">Belum ada postingan komunitas</p>';
+            }
+        }
+
+        function loadShops(user) {
+            const shopsList = document.getElementById('shops-list');
+            
+            if (user.type === 'farmer') {
+                shopsList.innerHTML = `
+                    <div class="shop-item">
+                        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=100&q=80" alt="Lobster Nusantara">
+                        <div class="shop-info">
+                            <h3>Lobster Nusantara</h3>
+                            <div class="shop-meta">📍 Jawa Barat • ⭐ 4.8 (127 ulasan)</div>
+                            <div class="shop-stats">
+                                <span>🟢 Live Kamera</span>
+                                <span>📊 120 Penjualan</span>
+                                <span>👥 450 Pengikut</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                shopsList.innerHTML = '<p style="text-align: center; color: #666;">Anda belum memiliki toko</p>';
+            }
+        }
+
+        function loadSettings(user) {
+            document.getElementById('settings-name').value = user.name;
+            document.getElementById('settings-email').value = user.email;
+            document.getElementById('settings-phone').value = user.phone || '';
+            document.getElementById('settings-address').value = user.address || '';
+        }
+
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        function editProfile() {
+            alert('Fitur edit profil akan segera tersedia');
+        }
+
+        // Settings form submission
+        document.getElementById('settings-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const updatedUser = {
+                ...user,
+                name: document.getElementById('settings-name').value,
+                email: document.getElementById('settings-email').value,
+                phone: document.getElementById('settings-phone').value,
+                address: document.getElementById('settings-address').value
+            };
+            
+            // Update user in storage
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            const userIndex = users.findIndex(u => u.email === user.email);
+            if (userIndex !== -1) {
+                users[userIndex] = updatedUser;
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+            }
+            
+            alert('Profil berhasil diperbarui!');
+            loadProfileData(updatedUser);
+        });
+    </script>
+</body>
+</html> 

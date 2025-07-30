@@ -3,58 +3,407 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="title">Login - Lobster Marketplace</title>
+    <title>Login - Lobster Marketplace</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-main {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .auth-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .user-type-indicator {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 2px solid #e9ecef;
+        }
+
+        .user-type-icon {
+            font-size: 20px;
+        }
+
+        .user-type-text {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #f5b301;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #f5b301;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #e6a800;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 179, 1, 0.3);
+        }
+
+        .auth-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .auth-link a {
+            color: #f5b301;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .forgot-password a {
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            color: #f5b301;
+        }
+
+        .demo-accounts {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .demo-accounts h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .demo-account {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .demo-account:hover {
+            background: #e9ecef;
+            border-color: #f5b301;
+        }
+
+        .demo-account-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .demo-account-icon {
+            font-size: 20px;
+        }
+
+        .demo-account-text {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .demo-account-credentials {
+            font-size: 12px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .auth-container {
+                padding: 30px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-logo">🦞 IndoLobs</div>
-        <div class="nav-links">
-            <a href="index.html">Beranda</a>
-            <a href="register.html">Daftar</a>
-        </div>
-    </nav>
-    <main class="auth-main">
+    <div class="auth-main">
         <div class="auth-container">
-            <h2 data-i18n="login">Login</h2>
+            <div class="auth-header">
+                <h1>🔐 Login</h1>
+                <p>Masuk ke akun Anda</p>
+            </div>
+
+            <div class="user-type-indicator" id="user-type-indicator">
+                <span class="user-type-icon" id="user-type-icon">🛒</span>
+                <span class="user-type-text" id="user-type-text">Pembeli</span>
+            </div>
+
             <form id="login-form">
-                <label for="login-email" data-i18n="email">Email</label>
-                <input type="email" id="login-email" required>
-                <label for="login-password" data-i18n="password">Password</label>
-                <input type="password" id="login-password" required>
-                <button type="submit" data-i18n="login">Login</button>
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Masuk</button>
             </form>
+
+            <div class="forgot-password">
+                <a href="#">Lupa Password?</a>
+            </div>
+
             <div class="auth-link">
-                Belum punya akun? <a href="register.html">Daftar</a>
+                Belum punya akun? <a href="register.html">Daftar di sini</a>
+            </div>
+
+            <div class="demo-accounts">
+                <h3>🧪 Demo Accounts</h3>
+                
+                <div class="demo-account" id="demo-buyer">
+                    <div class="demo-account-info">
+                        <span class="demo-account-icon">🛒</span>
+                        <div>
+                            <div class="demo-account-text">Pembeli Demo</div>
+                            <div class="demo-account-credentials">budi@demo.com / password123</div>
+                        </div>
+                    </div>
+                    <span>→</span>
+                </div>
+
+                <div class="demo-account" id="demo-farmer">
+                    <div class="demo-account-info">
+                        <span class="demo-account-icon">🦞</span>
+                        <div>
+                            <div class="demo-account-text">Peternak Demo</div>
+                            <div class="demo-account-credentials">ahmad@demo.com / password123</div>
+                        </div>
+                    </div>
+                    <span>→</span>
+                </div>
             </div>
         </div>
-    </main>
-    <footer class="footer">
-        <div>Lobster Marketplace &copy; 2025</div>
-    </footer>
-    <select id="languageSelect" class="lang-select">
-      <option value="id">Indonesia</option>
-      <option value="en">English</option>
-      <option value="nl">Dutch</option>
-    </select>
+    </div>
+
     <script>
-    document.getElementById('login-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('login-email').value.trim().toLowerCase();
-        const password = document.getElementById('login-password').value;
-        if (!email || !password) {
-            alert('Semua field wajib diisi!');
-            return;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create demo accounts if they don't exist
+            createDemoAccounts();
+            
+            // Setup demo account buttons
+            setupDemoAccounts();
+            
+            // Setup form submission
+            setupLoginForm();
+        });
+
+        function createDemoAccounts() {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            
+            // Check if demo accounts already exist
+            const existingBuyer = users.find(u => u.email === 'budi@demo.com');
+            const existingFarmer = users.find(u => u.email === 'ahmad@demo.com');
+            
+            if (!existingBuyer) {
+                users.push({
+                    type: 'buyer',
+                    name: 'Budi Santoso',
+                    email: 'budi@demo.com',
+                    password: 'password123',
+                    phone: '+628123456789',
+                    country: 'ID',
+                    address: 'Jakarta, Indonesia',
+                    createdAt: new Date().toISOString()
+                });
+            }
+            
+            if (!existingFarmer) {
+                users.push({
+                    type: 'farmer',
+                    name: 'Ahmad Rahman',
+                    email: 'ahmad@demo.com',
+                    password: 'password123',
+                    phone: '+628987654321',
+                    business: 'Lobster Nusantara',
+                    location: 'Jawa Barat',
+                    address: 'Bandung, Jawa Barat',
+                    license: 'LBS-2024-001',
+                    camera: 'available',
+                    description: 'Peternakan lobster premium dengan teknologi modern',
+                    rating: 4.8,
+                    totalSales: 120,
+                    followers: 450,
+                    createdAt: new Date().toISOString()
+                });
+            }
+            
+            localStorage.setItem('users', JSON.stringify(users));
         }
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        const user = users.find(u => u.email === email && u.password === password);
-        if (user) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            window.location.href = 'dashboard.html';
-        } else {
-            alert('Email atau password salah');
+
+        function setupDemoAccounts() {
+            // Demo account buttons
+            document.getElementById('demo-buyer').addEventListener('click', function() {
+                fillDemoAccount('buyer');
+            });
+            
+            document.getElementById('demo-farmer').addEventListener('click', function() {
+                fillDemoAccount('farmer');
+            });
         }
-    });
+
+        function fillDemoAccount(type) {
+            const emailInput = document.getElementById('login-email');
+            const passwordInput = document.getElementById('login-password');
+            
+            if (type === 'buyer') {
+                emailInput.value = 'budi@demo.com';
+                passwordInput.value = 'password123';
+            } else {
+                emailInput.value = 'ahmad@demo.com';
+                passwordInput.value = 'password123';
+            }
+            
+            // Trigger user type detection
+            emailInput.dispatchEvent(new Event('blur'));
+        }
+
+        function setupLoginForm() {
+            const loginForm = document.getElementById('login-form');
+            const emailInput = document.getElementById('login-email');
+            
+            // Auto-detect user type when email is entered
+            emailInput.addEventListener('blur', function() {
+                const email = this.value.trim();
+                if (email) {
+                    const users = JSON.parse(localStorage.getItem('users')) || [];
+                    const user = users.find(u => u.email === email);
+                    
+                    const userTypeIndicator = document.getElementById('user-type-indicator');
+                    if (user) {
+                        userTypeIndicator.style.display = 'flex';
+                        const userTypeIcon = document.getElementById('user-type-icon');
+                        const userTypeText = document.getElementById('user-type-text');
+                        
+                        if (user.type === 'farmer') {
+                            userTypeIcon.textContent = '🦞';
+                            userTypeText.textContent = 'Peternak';
+                        } else {
+                            userTypeIcon.textContent = '🛒';
+                            userTypeText.textContent = 'Pembeli';
+                        }
+                    } else {
+                        userTypeIndicator.style.display = 'none';
+                    }
+                }
+            });
+            
+            // Handle form submission
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value;
+                
+                if (!email || !password) {
+                    alert('Silakan isi email dan password');
+                    return;
+                }
+                
+                // Get users from localStorage
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    // Store current user
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    // Redirect based on user type
+                    if (user.type === 'farmer') {
+                        window.location.href = 'dashboard.html';
+                    } else {
+                        window.location.href = 'marketplace.html';
+                    }
+                } else {
+                    alert('Email atau password salah');
+                }
+            });
+        }
     </script>
 </body>
 </html>

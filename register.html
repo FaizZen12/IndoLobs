@@ -3,64 +3,449 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Akun - Lobster Marketplace</title>
+    <title>Daftar - Lobster Marketplace</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-main {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .auth-header h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .auth-header p {
+            color: #666;
+            font-size: 16px;
+        }
+
+        .user-type-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            padding: 5px;
+            border-radius: 10px;
+        }
+
+        .type-btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            background: transparent;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .type-btn.active {
+            background: #f5b301;
+            color: white;
+            box-shadow: 0 4px 15px rgba(245, 179, 1, 0.3);
+        }
+
+        .form-section {
+            display: none;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #f5b301;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #f5b301;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #e6a800;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 179, 1, 0.3);
+        }
+
+        .auth-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+
+        .auth-link a {
+            color: #f5b301;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+
+        .farmer-benefits {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .farmer-benefits h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .farmer-benefits ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .farmer-benefits li {
+            padding: 8px 0;
+            color: #666;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .farmer-benefits li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+        }
+
+        @media (max-width: 768px) {
+            .auth-container {
+                padding: 30px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .user-type-selector {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-logo">🦞 IndoLobs</div>
-        <div class="nav-links">
-            <a href="index.html">Beranda</a>
-            <a href="login.html">Login</a>
-        </div>
-    </nav>
-    <main class="auth-main">
+    <div class="auth-main">
         <div class="auth-container">
-            <h2>Daftar Akun</h2>
-            <form id="register-form">
-                <label for="reg-name">Nama</label>
-                <input type="text" id="reg-name" required>
-                <label for="reg-email">Email</label>
-                <input type="email" id="reg-email" required>
-                <label for="reg-password">Password</label>
-                <input type="password" id="reg-password" required>
-                <button type="submit">Daftar</button>
+            <div class="auth-header">
+                <h1>🎯 Daftar Akun</h1>
+                <p>Pilih jenis akun yang sesuai dengan kebutuhan Anda</p>
+            </div>
+
+            <div class="user-type-selector">
+                <button class="type-btn active" onclick="selectUserType('buyer')">
+                    🛒 Pembeli
+                </button>
+                <button class="type-btn" onclick="selectUserType('farmer')">
+                    🦞 Peternak
+                </button>
+            </div>
+
+            <!-- Form Pembeli -->
+            <form class="form-section active" id="buyer-form">
+                <div class="form-group">
+                    <label>Nama Lengkap <span class="required">*</span></label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" name="email" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nomor Telepon <span class="required">*</span></label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Negara <span class="required">*</span></label>
+                        <select name="country" required>
+                            <option value="">Pilih Negara</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="SG">Singapore</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="JP">Japan</option>
+                            <option value="US">United States</option>
+                            <option value="AU">Australia</option>
+                            <option value="NL">Netherlands</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Password <span class="required">*</span></label>
+                    <input type="password" name="password" required minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label>Alamat Lengkap <span class="required">*</span></label>
+                    <textarea name="address" rows="3" required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Daftar Sebagai Pembeli</button>
             </form>
+
+            <!-- Form Peternak -->
+            <form class="form-section" id="farmer-form">
+                <div class="form-group">
+                    <label>Nama Lengkap <span class="required">*</span></label>
+                    <input type="text" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Email <span class="required">*</span></label>
+                    <input type="email" name="email" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nomor Telepon <span class="required">*</span></label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password <span class="required">*</span></label>
+                        <input type="password" name="password" required minlength="6">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Nama Usaha <span class="required">*</span></label>
+                    <input type="text" name="business" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Lokasi Peternakan <span class="required">*</span></label>
+                        <select name="location" required>
+                            <option value="">Pilih Lokasi</option>
+                            <option value="Jawa Barat">Jawa Barat</option>
+                            <option value="Jawa Tengah">Jawa Tengah</option>
+                            <option value="Jawa Timur">Jawa Timur</option>
+                            <option value="Sumatera Utara">Sumatera Utara</option>
+                            <option value="Sumatera Selatan">Sumatera Selatan</option>
+                            <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                            <option value="Kalimantan Barat">Kalimantan Barat</option>
+                            <option value="Bali">Bali</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Nomor Izin Budidaya <span class="required">*</span></label>
+                        <input type="text" name="license" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Alamat Lengkap Peternakan <span class="required">*</span></label>
+                    <textarea name="address" rows="3" required></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Upload Dokumen Izin</label>
+                        <input type="file" name="documents" accept=".pdf,.jpg,.png">
+                    </div>
+                    <div class="form-group">
+                        <label>Koneksi Kamera Live</label>
+                        <select name="camera">
+                            <option value="available">Tersedia</option>
+                            <option value="unavailable">Belum Tersedia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Deskripsi Peternakan</label>
+                    <textarea name="description" rows="3" placeholder="Ceritakan tentang peternakan Anda..."></textarea>
+                </div>
+
+                <div class="farmer-benefits">
+                    <h3>🎯 Keuntungan Bergabung Sebagai Peternak:</h3>
+                    <ul>
+                        <li>Akses ke pasar global</li>
+                        <li>Live camera untuk transparansi</li>
+                        <li>Komunitas peternak aktif</li>
+                        <li>Dukungan ekspor legal</li>
+                        <li>Dashboard manajemen lengkap</li>
+                    </ul>
+                </div>
+
+                <button type="submit" class="submit-btn">Daftar Sebagai Peternak</button>
+            </form>
+
             <div class="auth-link">
-                Sudah punya akun? <a href="login.html">Login</a>
+                Sudah punya akun? <a href="login.html">Login di sini</a>
             </div>
         </div>
-    </main>
-    <footer class="footer">
-        <div>Lobster Marketplace &copy; 2025</div>
-    </footer>
+    </div>
+
     <script>
-    document.getElementById('register-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const name = document.getElementById('reg-name').value.trim();
-        const email = document.getElementById('reg-email').value.trim().toLowerCase();
-        const password = document.getElementById('reg-password').value;
-        if (!name || !email || !password) {
-            alert('Semua field wajib diisi!');
-            return;
+        let currentUserType = 'buyer';
+
+        function selectUserType(type) {
+            currentUserType = type;
+            
+            // Update button styles
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Show/hide forms
+            document.getElementById('buyer-form').classList.remove('active');
+            document.getElementById('farmer-form').classList.remove('active');
+            
+            if (type === 'buyer') {
+                document.getElementById('buyer-form').classList.add('active');
+            } else {
+                document.getElementById('farmer-form').classList.add('active');
+            }
         }
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        if (users.find(u => u.email === email)) {
-            alert('Email sudah digunakan');
-            return;
+
+        // Buyer form submission
+        document.getElementById('buyer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const userData = {
+                type: 'buyer',
+                name: formData.get('name'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                phone: formData.get('phone'),
+                country: formData.get('country'),
+                address: formData.get('address')
+            };
+            
+            try {
+                registerUser(userData);
+                alert('Pendaftaran berhasil! Silakan login.');
+                window.location.href = 'login.html';
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+
+        // Farmer form submission
+        document.getElementById('farmer-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const userData = {
+                type: 'farmer',
+                name: formData.get('name'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                phone: formData.get('phone'),
+                business: formData.get('business'),
+                location: formData.get('location'),
+                address: formData.get('address'),
+                license: formData.get('license'),
+                camera: formData.get('camera'),
+                description: formData.get('description') || 'Peternakan lobster premium dengan teknologi modern'
+            };
+            
+            try {
+                registerUser(userData);
+                alert('Pendaftaran peternak berhasil! Silakan login.');
+                window.location.href = 'login.html';
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+
+        function registerUser(userData) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            
+            // Check if email already exists
+            if (users.find(u => u.email === userData.email)) {
+                throw new Error('Email sudah digunakan');
+            }
+            
+            // Add user to storage
+            userData.createdAt = new Date().toISOString();
+            users.push(userData);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            return userData;
         }
-        users.push({ name, email, password });
-        localStorage.setItem('users', JSON.stringify(users));
-        alert('Registrasi berhasil!');
-        window.location.href = 'login.html';
-    });
     </script>
-    <select id="languageSelect" class="lang-select">
-      <option value="id">Indonesia</option>
-      <option value="en">English</option>
-      <option value="nl">Dutch</option>
-    </select>
-    <span data-i18n="title"></span>
-    <button data-i18n="buy"></button>
 </body>
+</html>
 </html>

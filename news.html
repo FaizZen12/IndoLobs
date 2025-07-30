@@ -3,110 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Belajar Budidaya Lobster</title>
+    <title>Edukasi Lobster - Lobster Marketplace</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .news-main {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .news-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .news-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .news-header h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .news-header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #f5b301;
+        }
+
+        .news-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .news-content {
+            padding: 25px;
+        }
+
+        .news-category {
+            display: inline-block;
+            background: #f5b301;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .news-title {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .news-excerpt {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        .news-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .read-more {
+            color: #f5b301;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #e6a800;
+        }
+
+        .featured-article {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .featured-article .news-image {
+            height: 100%;
+        }
+
+        .featured-article .news-content {
+            padding: 40px;
+        }
+
+        .featured-article .news-title {
+            font-size: 1.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .featured-article {
+                grid-column: span 1;
+                grid-template-columns: 1fr;
+            }
+            
+            .featured-article .news-image {
+                height: 250px;
+            }
+            
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="main-navbar">
+    <!-- Navigation -->
+    <nav class="navbar">
         <div class="nav-logo">🦞 IndoLobs</div>
         <div class="nav-links">
             <a href="index.html">Beranda</a>
             <a href="marketplace.html">Marketplace</a>
             <a href="forum.html">Komunitas</a>
-            <a href="news.html">Edukasi</a>
-            <a href="dashboard.html">Dashboard</a>
+            <a href="news.html" class="active">Edukasi</a>
+            <div id="nav-user">
+                <a href="login.html" class="login-btn">Login</a>
+            </div>
         </div>
-        <div class="nav-user" id="nav-user"></div>
     </nav>
-    <header class="news-hero">
-        <h1>Belajar Budidaya Lobster</h1>
-        <p class="news-subtitle">Panduan, tips, dan info terbaru untuk peternak dan pembeli lobster Indonesia.</p>
-    </header>
+
+    <!-- Main Content -->
     <main class="news-main">
-        <aside class="news-sidebar">
-            <h3>Artikel Populer</h3>
-            <ul>
-                <li><a href="artikel-detail-1.html">Cara Memilih Bibit Lobster Unggul</a></li>
-                <li><a href="artikel-detail-2.html">Tips Pakan Lobster Efisien</a></li>
-                <li><a href="artikel-detail-3.html">Legalitas Ekspor Lobster</a></li>
-            </ul>
-            <h3>Kategori</h3>
-            <ul>
-                <li><a href="#" data-kategori="Teknik Budidaya">Teknik Budidaya</a></li>
-                <li><a href="#" data-kategori="Pakan">Pakan</a></li>
-                <li><a href="#" data-kategori="Ekspor">Ekspor</a></li>
-                <li><a href="#" data-kategori="Legalitas">Legalitas</a></li>
-                <li><a href="#" data-kategori="Cerita Peternak">Cerita Peternak</a></li>
-            </ul>
-        </aside>
-        <section class="news-list">
-            <div class="news-card">
-                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Artikel 1">
-                <div>
-                    <h2>Cara Memilih Bibit Lobster Unggul</h2>
-                    <p>Panduan memilih bibit lobster sehat untuk hasil panen maksimal.</p>
-                    <a href="artikel-detail-1.html" class="news-btn">Baca Selengkapnya</a>
-                </div>
+        <div class="news-container">
+            <div class="news-header">
+                <h1>📚 Edukasi Lobster</h1>
+                <p>Pelajari seluk beluk budidaya lobster, teknik modern, dan industri lobster Indonesia</p>
             </div>
-            <div class="news-card">
-                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Artikel 2">
-                <div>
-                    <h2>Tips Pakan Lobster Efisien</h2>
-                    <p>Strategi pemberian pakan agar lobster tumbuh cepat dan sehat.</p>
-                    <a href="artikel-detail-2.html" class="news-btn">Baca Selengkapnya</a>
-                </div>
+
+            <div class="news-grid">
+                <!-- Featured Article -->
+                <article class="news-card featured-article">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Lobster Air Tawar" class="news-image">
+                    <div class="news-content">
+                        <span class="news-category">Teknik Budidaya</span>
+                        <h2 class="news-title">Panduan Lengkap Budidaya Lobster Air Tawar untuk Pemula</h2>
+                        <p class="news-excerpt">
+                            Lobster air tawar (Cherax quadricarinatus) menjadi primadona budidaya di Indonesia. 
+                            Artikel ini membahas teknik budidaya dari persiapan kolam hingga panen, termasuk 
+                            manajemen pakan, kualitas air, dan pencegahan penyakit.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">📅 15 Januari 2024</span>
+                            <a href="artikel-detail-1.html" class="read-more">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Regular Articles -->
+                <article class="news-card">
+                    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Lobster Mutiara" class="news-image">
+                    <div class="news-content">
+                        <span class="news-category">Kualitas Ekspor</span>
+                        <h3 class="news-title">Standar Kualitas Lobster untuk Pasar Ekspor</h3>
+                        <p class="news-excerpt">
+                            Memahami standar kualitas lobster yang dibutuhkan pasar internasional. 
+                            Dari ukuran, berat, hingga sertifikasi yang diperlukan untuk ekspor.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">📅 12 Januari 2024</span>
+                            <a href="artikel-detail-2.html" class="read-more">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <img src="https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80" alt="Lobster Batu" class="news-image">
+                    <div class="news-content">
+                        <span class="news-category">Teknologi</span>
+                        <h3 class="news-title">Implementasi IoT dalam Budidaya Lobster Modern</h3>
+                        <p class="news-excerpt">
+                            Teknologi Internet of Things (IoT) mengubah cara budidaya lobster. 
+                            Monitoring kualitas air, pemberian pakan otomatis, dan sistem early warning.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">📅 10 Januari 2024</span>
+                            <a href="artikel-detail-3.html" class="read-more">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=400&q=80" alt="Lobster Air Laut" class="news-image">
+                    <div class="news-content">
+                        <span class="news-category">Pemasaran</span>
+                        <h3 class="news-title">Strategi Pemasaran Lobster di Era Digital</h3>
+                        <p class="news-excerpt">
+                            Platform digital membuka peluang baru untuk pemasaran lobster. 
+                            Live camera, transparansi, dan direct-to-consumer menjadi tren baru.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">📅 8 Januari 2024</span>
+                            <a href="artikel-detail-4.html" class="read-more">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Kolam Lobster" class="news-image">
+                    <div class="news-content">
+                        <span class="news-category">Manajemen</span>
+                        <h3 class="news-title">Manajemen Kolam Lobster yang Efektif</h3>
+                        <p class="news-excerpt">
+                            Tips dan trik mengelola kolam lobster untuk hasil optimal. 
+                            Dari desain kolam, sistem sirkulasi air, hingga pengendalian hama.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">📅 5 Januari 2024</span>
+                            <a href="artikel-detail-5.html" class="read-more">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Pakan Lobster" class="news-image">
+                    <div class="news-content">
+                        <span class="news-category">Nutrisi</span>
+                        <h3 class="news-title">Formulasi Pakan Lobster untuk Pertumbuhan Optimal</h3>
+                        <p class="news-excerpt">
+                            Pakan berkualitas menentukan pertumbuhan lobster. 
+                            Pelajari formulasi pakan yang tepat untuk berbagai tahap pertumbuhan.
+                        </p>
+                        <div class="news-meta">
+                            <span class="news-date">📅 3 Januari 2024</span>
+                            <a href="artikel-detail-6.html" class="read-more">Baca Selengkapnya →</a>
+                        </div>
+                    </div>
+                </article>
             </div>
-            <div class="news-card">
-                <img src="https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80" alt="Artikel 3">
-                <div>
-                    <h2>Legalitas Ekspor Lobster</h2>
-                    <p>Informasi terbaru tentang regulasi dan izin ekspor lobster.</p>
-                    <a href="artikel-detail-3.html" class="news-btn">Baca Selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card">
-                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Artikel 4">
-                <div>
-                    <h2>Teknik Bioflok untuk Budidaya Lobster</h2>
-                    <p>Kenali metode bioflok yang ramah lingkungan dan efisien.</p>
-                    <a href="artikel-detail-4.html" class="news-btn">Baca Selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card">
-                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Artikel 5">
-                <div>
-                    <h2>Manajemen Air Kolam Lobster</h2>
-                    <p>Cara menjaga kualitas air agar lobster tidak mudah sakit.</p>
-                    <a href="artikel-detail-5.html" class="news-btn">Baca Selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card">
-                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Artikel 6">
-                <div>
-                    <h2>Sertifikasi Peternak Lobster</h2>
-                    <p>Langkah-langkah mendapatkan sertifikat izin budidaya lobster.</p>
-                    <a href="artikel-detail-6.html" class="news-btn">Baca Selengkapnya</a>
-                </div>
-            </div>
-            <div class="news-card" data-kategori="Cerita Peternak">
-                <img src="peternak-story.jpg" alt="Cerita Peternak">
-                <div>
-                    <h2>Kisah Sukses Pak Budi</h2>
-                    <p>Dari kolam kecil hingga ekspor ke luar negeri, inspirasi peternak lobster Indonesia.</p>
-                    <a href="artikel-detail-cerita.html" class="news-btn">Baca Selengkapnya</a>
-                </div>
-            </div>
-        </section>
+        </div>
     </main>
+
+    <!-- Footer -->
     <footer class="footer">
-        <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>🦞 IndoLobs</h3>
+                    <p>Platform marketplace lobster terpercaya dengan transparansi penuh melalui live camera.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Layanan</h4>
+                    <ul>
+                        <li><a href="marketplace.html">Marketplace</a></li>
+                        <li><a href="forum.html">Komunitas</a></li>
+                        <li><a href="news.html">Edukasi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Dukungan</h4>
+                    <ul>
+                        <li><a href="#">Bantuan</a></li>
+                        <li><a href="#">Kontak</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Ikuti Kami</h4>
+                    <div class="social-links">
+                        <a href="#">📘 Facebook</a>
+                        <a href="#">📷 Instagram</a>
+                        <a href="#">🐦 Twitter</a>
+                        <a href="#">📺 YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 IndoLobs. Semua hak dilindungi.</p>
+            </div>
+        </div>
     </footer>
-    <select id="languageSelect" class="lang-select">
-      <option value="id">Indonesia</option>
-      <option value="en">English</option>
-      <option value="nl">Dutch</option>
-    </select>
-    <span data-i18n="title"></span>
-    <button data-i18n="buy"></button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const navUser = document.getElementById('nav-user');
+            if (user) {
+                navUser.innerHTML = `<span>👋 Hai, ${user.name}</span>
+                    <button id="logoutBtn" class="logout-btn">Logout</button>`;
+                document.getElementById("logoutBtn").addEventListener("click", function() {
+                    localStorage.removeItem("currentUser");
+                    window.location.href = "login.html";
+                });
+            } else {
+                navUser.innerHTML = `<a href="login.html" class="login-btn">Login</a>`;
+            }
+        });
+    </script>
 </body>
 </html>

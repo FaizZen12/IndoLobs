@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard - Lobster Marketplace</title>
+    <title>Dashboard Peternak - Lobster Marketplace</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <style>
@@ -21,14 +21,6 @@
         .nav-logo {
             font-size: 1.5rem;
             font-weight: bold;
-        }
-        .nav-toggle {
-            display: none;
-        }
-        .nav-hamburger {
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: none;
         }
         .nav-links {
             display: flex;
@@ -63,7 +55,7 @@
             color: #1a3c2b;
         }
         .dashboard-main {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 2rem auto;
             animation: fadeIn 1s;
         }
@@ -103,100 +95,222 @@
             grid-template-columns: 2fr 1fr;
             gap: 2rem;
         }
-        @media (max-width: 900px) {
-            .dashboard-sections {
-                grid-template-columns: 1fr;
-            }
-        }
-        .dashboard-articles, .dashboard-wishlist {
+        .main-section {
             background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-            padding: 1.5rem;
-            margin-bottom: 2rem;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
         }
-        .dashboard-articles h3, .dashboard-wishlist h3 {
+        .section-title {
             color: #267a4a;
-            margin-bottom: 1rem;
-        }
-        .article-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-        .article-card {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-            background: #f8f8f8;
-            border-radius: 8px;
-            padding: 1rem;
-        }
-        .article-card img {
-            width: 80px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 8px;
-        }
-        .article-info h4 {
-            margin: 0 0 0.3rem 0;
-            font-size: 1.05rem;
-            color: #1a3c2b;
-        }
-        .article-info p {
-            margin: 0 0 0.5rem 0;
-            font-size: 0.97rem;
-            color: #555;
-        }
-        .article-info .news-btn {
-            font-size: 0.95rem;
-            padding: 0.3rem 0.8rem;
-        }
-        .wishlist-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        .wishlist-card {
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 1rem;
-            background: #f8f8f8;
-            border-radius: 8px;
-            padding: 0.7rem 1rem;
+            gap: 0.5rem;
         }
-        .wishlist-card img {
-            width: 60px;
-            height: 60px;
+        .camera-section {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+            margin-bottom: 2rem;
+        }
+        .camera-preview {
+            width: 100%;
+            height: 300px;
+            border-radius: 12px;
+            background: #000;
             object-fit: cover;
-            border-radius: 8px;
+            margin-bottom: 1rem;
         }
-        .wishlist-card .wishlist-name {
+        .camera-controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .camera-btn {
+            background: #267a4a;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .camera-btn:hover {
+            background: #1e3a3a;
+        }
+        .camera-btn.danger {
+            background: #e74c3c;
+        }
+        .camera-btn.danger:hover {
+            background: #c0392b;
+        }
+        .order-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .order-item {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: box-shadow 0.2s;
+        }
+        .order-item:hover {
+            box-shadow: 0 2px 8px rgba(38,122,74,0.1);
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .order-id {
             font-weight: bold;
             color: #267a4a;
         }
-        @media (max-width: 600px) {
-            .dashboard-main {
-                padding: 0 0.5rem;
-            }
-            .dashboard-articles, .dashboard-wishlist {
-                padding: 1rem 0.5rem;
-            }
-            .article-card img, .wishlist-card img {
-                width: 50px;
-                height: 40px;
-            }
-        }
-        .lang-select {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: #fff;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+        .order-status {
             padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .status-new {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-processing {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        .status-shipped {
+            background: #d4edda;
+            color: #155724;
+        }
+        .order-details {
+            color: #666;
             font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        .order-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .order-btn {
+            background: #267a4a;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
             cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .order-btn:hover {
+            background: #1e3a3a;
+        }
+        .product-section {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+            margin-bottom: 2rem;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .product-img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .product-name {
+            font-weight: bold;
+            color: #267a4a;
+            margin-bottom: 0.5rem;
+        }
+        .product-price {
+            color: #f5b301;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .product-stock {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .add-product-btn {
+            background: #267a4a;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: background 0.2s;
+        }
+        .add-product-btn:hover {
+            background: #1e3a3a;
+        }
+        .community-section {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .community-post {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .post-category {
+            background: #267a4a;
+            color: #fff;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .post-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .post-content {
+            color: #1e3a3a;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .post-actions {
+            display: flex;
+            gap: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .dashboard-sections {
+                grid-template-columns: 1fr;
+            }
+            .camera-controls {
+                justify-content: center;
+            }
         }
     </style>
 </head>
@@ -210,140 +324,578 @@
             <a href="news.html">Edukasi</a>
             <a href="dashboard.html" class="active">Dashboard</a>
         </div>
-        <div class="nav-user" id="nav-user">
-            <!-- Nama user atau tombol Login akan ditampilkan di sini -->
-        </div>
-      
+        <div class="nav-user" id="nav-user"></div>
     </nav>
+    
     <main class="dashboard-main">
-        <!-- Statistik Ringkas -->
+        <!-- Dashboard Stats -->
         <section class="dashboard-stats">
             <div class="stat-card">
-                <div class="stat-title">Order Bulan Ini</div>
-                <div class="stat-value" id="stat-orders">0</div>
+                <div class="stat-title">Total Penjualan</div>
+                <div class="stat-value">120</div>
             </div>
             <div class="stat-card">
-                <div class="stat-title">Toko Favorit</div>
-                <div class="stat-value" id="stat-fav">0</div>
+                <div class="stat-title">Pendapatan Bulan Ini</div>
+                <div class="stat-value">Rp 15.2M</div>
             </div>
             <div class="stat-card">
-                <div class="stat-title">Artikel Dibaca</div>
-                <div class="stat-value" id="stat-articles">0</div>
+                <div class="stat-title">Order Masuk</div>
+                <div class="stat-value">8</div>
             </div>
             <div class="stat-card">
-                <div class="stat-title">Komentar Ditulis</div>
-                <div class="stat-value" id="stat-comments">0</div>
+                <div class="stat-title">Rating Rata-rata</div>
+                <div class="stat-value">4.8</div>
             </div>
         </section>
+        
         <div class="dashboard-sections">
-            <!-- Section Edukasi -->
-            <section class="dashboard-articles">
-                <h3>Artikel Terbaru</h3>
-                <div class="article-list" id="article-list">
-                    <!-- Artikel diisi JS -->
-                </div>
-            </section>
-            <!-- Section Wishlist -->
-            <aside class="dashboard-wishlist">
-                <h3>Wishlist Anda</h3>
-                <div class="wishlist-list" id="wishlist-list">
-                    <!-- Wishlist diisi JS -->
-                </div>
-            </aside>
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Camera Control Section -->
+                <section class="camera-section">
+                    <h2 class="section-title">📷 Kontrol Kamera Live</h2>
+                    <video controls class="camera-preview" id="liveCamera">
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        Video tidak tersedia.
+                    </video>
+                    <div class="camera-controls">
+                        <button class="camera-btn" onclick="switchCamera('pond1')">Kolam 1</button>
+                        <button class="camera-btn" onclick="switchCamera('pond2')">Kolam 2</button>
+                        <button class="camera-btn" onclick="switchCamera('pond3')">Kolam 3</button>
+                        <button class="camera-btn" onclick="toggleCamera()" id="cameraToggle">⏸️ Pause</button>
+                        <button class="camera-btn danger" onclick="emergencyStop()">🚨 Emergency Stop</button>
+                        <button class="camera-btn" onclick="fullscreenCamera()">⛶ Fullscreen</button>
+                    </div>
+                </section>
+                
+                <!-- Order Management Section -->
+                <section class="main-section">
+                    <h2 class="section-title">📦 Order Masuk</h2>
+                    <div class="order-list" id="orderList">
+                        <!-- Diisi JavaScript -->
+                    </div>
+                </section>
+                
+                <!-- Product Management Section -->
+                <section class="product-section">
+                    <h2 class="section-title">🦞 Kelola Produk</h2>
+                    <div class="product-grid" id="productGrid">
+                        <!-- Diisi JavaScript -->
+                    </div>
+                    <button class="add-product-btn" onclick="addProduct()">➕ Tambah Produk Baru</button>
+                </section>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Community Section -->
+                <section class="community-section">
+                    <h2 class="section-title">💬 Komunitas</h2>
+                    <div id="communityPosts">
+                        <!-- Diisi JavaScript -->
+                    </div>
+                    <button class="add-product-btn" onclick="createPost()" style="width: 100%;">✍️ Buat Post Baru</button>
+                </section>
+            </div>
         </div>
     </main>
+    
     <footer class="footer">
         <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
     </footer>
+    
     <script>
-    // Redirect ke halaman login jika belum ada user yang login
-    if (!localStorage.getItem("currentUser")) {
-        window.location.href = "login.html";
-    }
-
-    // Halaman publik: tampilkan nama user jika login, atau tombol Login
-    document.addEventListener('DOMContentLoaded', function() {
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-        const navUser = document.getElementById('nav-user');
-        if (user) {
-            navUser.innerHTML = `<span>Hai, ${user.name} 👋</span>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user || user.type !== 'farmer') {
+                alert('Akses ditolak. Hanya untuk peternak.');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const navUser = document.getElementById('nav-user');
+            navUser.innerHTML = `<span>👋 Hai, ${user.name}</span>
                 <button id="logoutBtn" class="logout-btn">Logout</button>`;
             document.getElementById("logoutBtn").addEventListener("click", function() {
                 localStorage.removeItem("currentUser");
                 window.location.href = "login.html";
             });
-        } else {
-            navUser.innerHTML = `<a href="login.html" class="login-btn">Login</a>`;
-        }
-    });
-
-    // 4. Statistik dummy
-    document.getElementById('stat-orders').textContent = Math.floor(Math.random()*10+1);
-    document.getElementById('stat-fav').textContent = (JSON.parse(localStorage.getItem('wishlist')) || []).length;
-    document.getElementById('stat-articles').textContent = Math.floor(Math.random()*8+2);
-    document.getElementById('stat-comments').textContent = Math.floor(Math.random()*5);
-
-    // 5. Artikel terbaru dummy
-    const articles = [
-        {
-            img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
-            title: "Cara Memilih Bibit Lobster Unggul",
-            desc: "Panduan memilih bibit lobster sehat untuk hasil panen maksimal.",
-            link: "artikel-detail-1.html"
-        },
-        {
-            img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
-            title: "Tips Pakan Lobster Efisien",
-            desc: "Strategi pemberian pakan agar lobster tumbuh cepat dan sehat.",
-            link: "artikel-detail-2.html"
-        },
-        {
-            img: "https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80",
-            title: "Legalitas Ekspor Lobster",
-            desc: "Informasi terbaru tentang regulasi dan izin ekspor lobster.",
-            link: "artikel-detail-3.html"
-        }
-    ];
-    const articleList = document.getElementById('article-list');
-    articles.slice(0,3).forEach(a => {
-        const card = document.createElement('div');
-        card.className = 'article-card';
-        card.innerHTML = `
-            <img src="${a.img}" alt="${a.title}">
-            <div class="article-info">
-                <h4>${a.title}</h4>
-                <p>${a.desc}</p>
-                <a href="${a.link}" class="news-btn">Baca Selengkapnya</a>
-            </div>
-        `;
-        articleList.appendChild(card);
-    });
-
-    // 6. Wishlist dummy dari localStorage
-    // Contoh data produk favorit: [{img, name}]
-    const dummyProducts = [
-        {id:'nusantara', img:"https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80", name:"Lobster Nusantara"},
-        {id:'sulawesi', img:"https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80", name:"Sulawesi Lobster"},
-        {id:'sumatera', img:"https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80", name:"Sumatera Lobster"}
-    ];
-    const wishlistIds = JSON.parse(localStorage.getItem('wishlist')) || [];
-    const wishlistList = document.getElementById('wishlist-list');
-    if (wishlistIds.length === 0) {
-        wishlistList.innerHTML = '<div style="color:#888;">Belum ada produk favorit.</div>';
-    } else {
-        wishlistIds.forEach(id => {
-            const prod = dummyProducts.find(p => p.id === id);
-            if (prod) {
-                const card = document.createElement('div');
-                card.className = 'wishlist-card';
-                card.innerHTML = `
-                    <img src="${prod.img}" alt="${prod.name}">
-                    <div class="wishlist-name">${prod.name}</div>
-                `;
-                wishlistList.appendChild(card);
-            }
+            
+            loadDashboardData(user);
         });
-    }
+
+        function loadDashboardData(user) {
+            loadDashboardStats(user);
+            loadOrders(user.email);
+            loadProducts(user.email);
+            loadCommunityPosts(user.email);
+        }
+
+        function loadDashboardStats(user) {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            
+            // Get user's orders
+            const userOrders = orders.filter(o => o.farmerId === user.email);
+            const totalSales = userOrders.length;
+            const totalRevenue = userOrders.reduce((sum, order) => sum + order.totalPrice, 0);
+            
+            // Get user's products
+            const userProducts = products.filter(p => p.farmerId === user.email);
+            const avgRating = userProducts.length > 0 ? 
+                userProducts.reduce((sum, p) => sum + p.rating, 0) / userProducts.length : 0;
+            
+            // Update stats cards
+            const statCards = document.querySelectorAll('.stat-value');
+            if (statCards.length >= 4) {
+                statCards[0].textContent = totalSales;
+                statCards[1].textContent = `Rp ${(totalRevenue / 1000000).toFixed(1)}M`;
+                statCards[2].textContent = userOrders.filter(o => o.status === 'new').length;
+                statCards[3].textContent = avgRating.toFixed(1);
+            }
+        }
+
+        function loadOrders(farmerId) {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            
+            const userOrders = orders.filter(o => o.farmerId === farmerId);
+            const orderList = document.getElementById('orderList');
+            
+            if (userOrders.length === 0) {
+                orderList.innerHTML = '<p style="text-align: center; color: #666;">Belum ada order masuk</p>';
+                return;
+            }
+            
+            orderList.innerHTML = userOrders.map(order => {
+                const buyer = users.find(u => u.email === order.buyerId);
+                const product = products.find(p => p.id === order.productId);
+                
+                return `
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div class="order-id">${order.id}</div>
+                            <div class="order-status status-${order.status}">${getStatusText(order.status)}</div>
+                        </div>
+                        <div class="order-details">
+                            <strong>${product ? product.name : 'Produk'}</strong><br>
+                            Pembeli: ${buyer ? buyer.name : 'Anonymous'}<br>
+                            Jumlah: ${order.quantity} kg<br>
+                            Total: Rp ${order.totalPrice.toLocaleString()}<br>
+                            Tanggal: ${formatDate(order.createdAt)}
+                        </div>
+                        <div class="order-actions">
+                            ${getOrderActions(order)}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function loadProducts(farmerId) {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const userProducts = products.filter(p => p.farmerId === farmerId);
+            const productGrid = document.getElementById('productGrid');
+            
+            if (userProducts.length === 0) {
+                productGrid.innerHTML = '<p style="text-align: center; color: #666;">Belum ada produk</p>';
+                return;
+            }
+            
+            productGrid.innerHTML = userProducts.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-img">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">Rp ${product.price.toLocaleString()}/kg</div>
+                    <div class="product-stock">Stok: ${product.stock} kg</div>
+                    <button class="order-btn" onclick="editProduct('${product.id}')" style="margin-top: 0.5rem; width: 100%;">✏️ Edit</button>
+                </div>
+            `).join('');
+        }
+
+        function loadCommunityPosts(farmerId) {
+            const posts = JSON.parse(localStorage.getItem('posts')) || [];
+            const userPosts = posts.filter(p => p.authorId === farmerId);
+            const communityPosts = document.getElementById('communityPosts');
+            
+            if (userPosts.length === 0) {
+                communityPosts.innerHTML = '<p style="text-align: center; color: #666;">Belum ada postingan</p>';
+                return;
+            }
+            
+            communityPosts.innerHTML = userPosts.map(post => `
+                <div class="community-post">
+                    <div class="post-header">
+                        <span class="post-category">${post.category}</span>
+                        <span class="post-date">${formatDate(post.createdAt)}</span>
+                    </div>
+                    <div class="post-content">"${post.content}"</div>
+                    <div class="post-actions">
+                        <span>👍 ${post.likes}</span>
+                        <span>💬 ${post.comments}</span>
+                        <span>📤 Bagikan</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getStatusText(status) {
+            const statusMap = {
+                'new': 'Baru',
+                'processing': 'Diproses',
+                'shipped': 'Dikirim',
+                'completed': 'Selesai',
+                'cancelled': 'Dibatalkan'
+            };
+            return statusMap[status] || status;
+        }
+
+        function getOrderActions(order) {
+            switch (order.status) {
+                case 'new':
+                    return `
+                        <button class="order-btn" onclick="processOrder('${order.id}')">✅ Proses</button>
+                        <button class="order-btn" onclick="viewOrder('${order.id}')">👁️ Detail</button>
+                    `;
+                case 'processing':
+                    return `
+                        <button class="order-btn" onclick="shipOrder('${order.id}')">🚚 Kirim</button>
+                        <button class="order-btn" onclick="viewOrder('${order.id}')">👁️ Detail</button>
+                    `;
+                case 'shipped':
+                    return `
+                        <button class="order-btn" onclick="trackOrder('${order.id}')">📦 Lacak</button>
+                        <button class="order-btn" onclick="viewOrder('${order.id}')">👁️ Detail</button>
+                    `;
+                default:
+                    return `
+                        <button class="order-btn" onclick="viewOrder('${order.id}')">👁️ Detail</button>
+                    `;
+            }
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return '1 hari yang lalu';
+            if (diffDays < 7) return `${diffDays} hari yang lalu`;
+            if (diffDays < 30) return `${Math.floor(diffDays / 7)} minggu yang lalu`;
+            if (diffDays < 365) return `${Math.floor(diffDays / 30)} bulan yang lalu`;
+            return `${Math.floor(diffDays / 365)} tahun yang lalu`;
+        }
+
+        function switchCamera(pond) {
+            alert(`Beralih ke kamera ${pond}`);
+        }
+
+        function toggleCamera() {
+            const btn = document.getElementById('cameraToggle');
+            if (btn.textContent.includes('Pause')) {
+                btn.textContent = '▶️ Play';
+            } else {
+                btn.textContent = '⏸️ Pause';
+            }
+        }
+
+        function emergencyStop() {
+            if (confirm('Apakah Anda yakin ingin menghentikan semua kamera?')) {
+                alert('Semua kamera telah dihentikan');
+            }
+        }
+
+        function fullscreenCamera() {
+            const video = document.getElementById('liveCamera');
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            }
+        }
+
+        function processOrder(orderId) {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = 'processing';
+                localStorage.setItem('orders', JSON.stringify(orders));
+                alert(`Order ${orderId} sedang diproses...`);
+                loadDashboardData(JSON.parse(localStorage.getItem('currentUser')));
+            }
+        }
+
+        function shipOrder(orderId) {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = 'shipped';
+                localStorage.setItem('orders', JSON.stringify(orders));
+                alert(`Order ${orderId} sedang dikirim...`);
+                loadDashboardData(JSON.parse(localStorage.getItem('currentUser')));
+            }
+        }
+
+        function viewOrder(orderId) {
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                alert(`Detail Order ${orderId}:\nPembeli: ${order.receiverName}\nTotal: Rp ${order.totalPrice.toLocaleString()}\nStatus: ${getStatusText(order.status)}`);
+            }
+        }
+
+        function trackOrder(orderId) {
+            alert(`Melacak pengiriman order ${orderId}`);
+        }
+
+        function editProduct(productId) {
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const product = products.find(p => p.id === productId);
+            
+            if (!product) {
+                alert('Produk tidak ditemukan');
+                return;
+            }
+            
+            // Create edit form modal
+            const modal = document.createElement('div');
+            modal.className = 'edit-modal';
+            modal.innerHTML = `
+                <div class="edit-modal-content">
+                    <div class="edit-modal-header">
+                        <h3>✏️ Edit Produk</h3>
+                        <button class="close-btn" onclick="closeEditModal()">×</button>
+                    </div>
+                    <form id="edit-product-form">
+                        <div class="form-group">
+                            <label>Nama Produk</label>
+                            <input type="text" id="edit-name" value="${product.name}" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Jenis Lobster</label>
+                                <select id="edit-type" required>
+                                    <option value="Air Tawar" ${product.type === 'Air Tawar' ? 'selected' : ''}>Air Tawar</option>
+                                    <option value="Mutiara" ${product.type === 'Mutiara' ? 'selected' : ''}>Mutiara</option>
+                                    <option value="Batu" ${product.type === 'Batu' ? 'selected' : ''}>Batu</option>
+                                    <option value="Air Laut" ${product.type === 'Air Laut' ? 'selected' : ''}>Air Laut</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Harga (Rp/kg)</label>
+                                <input type="number" id="edit-price" value="${product.price}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Ukuran</label>
+                                <input type="text" id="edit-size" value="${product.size}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Berat</label>
+                                <input type="text" id="edit-weight" value="${product.weight}" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Umur</label>
+                                <input type="text" id="edit-age" value="${product.age}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Stok (kg)</label>
+                                <input type="number" id="edit-stock" value="${product.stock}" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Deskripsi</label>
+                            <textarea id="edit-description" rows="3" required>${product.description}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>URL Gambar</label>
+                            <input type="url" id="edit-image" value="${product.image}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>URL Video</label>
+                            <input type="url" id="edit-video" value="${product.video}" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn" onclick="closeEditModal()">Batal</button>
+                            <button type="submit" class="save-btn">💾 Simpan Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Handle form submission
+            document.getElementById('edit-product-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const updatedProduct = {
+                    ...product,
+                    name: document.getElementById('edit-name').value,
+                    type: document.getElementById('edit-type').value,
+                    price: parseInt(document.getElementById('edit-price').value),
+                    size: document.getElementById('edit-size').value,
+                    weight: document.getElementById('edit-weight').value,
+                    age: document.getElementById('edit-age').value,
+                    stock: parseInt(document.getElementById('edit-stock').value),
+                    description: document.getElementById('edit-description').value,
+                    image: document.getElementById('edit-image').value,
+                    video: document.getElementById('edit-video').value
+                };
+                
+                // Update product in localStorage
+                const products = JSON.parse(localStorage.getItem('products')) || [];
+                const index = products.findIndex(p => p.id === productId);
+                if (index !== -1) {
+                    products[index] = updatedProduct;
+                    localStorage.setItem('products', JSON.stringify(products));
+                    alert('Produk berhasil diperbarui!');
+                    closeEditModal();
+                    loadDashboardData(JSON.parse(localStorage.getItem('currentUser')));
+                }
+            });
+        }
+
+        function closeEditModal() {
+            const modal = document.querySelector('.edit-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        function addProduct() {
+            // Create add product form modal
+            const modal = document.createElement('div');
+            modal.className = 'edit-modal';
+            modal.innerHTML = `
+                <div class="edit-modal-content">
+                    <div class="edit-modal-header">
+                        <h3>➕ Tambah Produk Baru</h3>
+                        <button class="close-btn" onclick="closeEditModal()">×</button>
+                    </div>
+                    <form id="add-product-form">
+                        <div class="form-group">
+                            <label>Nama Produk</label>
+                            <input type="text" id="add-name" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Jenis Lobster</label>
+                                <select id="add-type" required>
+                                    <option value="">Pilih Jenis</option>
+                                    <option value="Air Tawar">Air Tawar</option>
+                                    <option value="Mutiara">Mutiara</option>
+                                    <option value="Batu">Batu</option>
+                                    <option value="Air Laut">Air Laut</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Harga (Rp/kg)</label>
+                                <input type="number" id="add-price" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Ukuran</label>
+                                <input type="text" id="add-size" placeholder="15-20 cm" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Berat</label>
+                                <input type="text" id="add-weight" placeholder="300-500 gram" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Umur</label>
+                                <input type="text" id="add-age" placeholder="8-10 bulan" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Stok (kg)</label>
+                                <input type="number" id="add-stock" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Deskripsi</label>
+                            <textarea id="add-description" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>URL Gambar</label>
+                            <input type="url" id="add-image" required>
+                        </div>
+                        <div class="form-group">
+                            <label>URL Video</label>
+                            <input type="url" id="add-video" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="cancel-btn" onclick="closeEditModal()">Batal</button>
+                            <button type="submit" class="save-btn">➕ Tambah Produk</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Handle form submission
+            document.getElementById('add-product-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                const newProduct = {
+                    id: 'product-' + Date.now(),
+                    name: document.getElementById('add-name').value,
+                    type: document.getElementById('add-type').value,
+                    size: document.getElementById('add-size').value,
+                    weight: document.getElementById('add-weight').value,
+                    age: document.getElementById('add-age').value,
+                    price: parseInt(document.getElementById('add-price').value),
+                    stock: parseInt(document.getElementById('add-stock').value),
+                    farmerId: user.email,
+                    image: document.getElementById('add-image').value,
+                    video: document.getElementById('add-video').value,
+                    description: document.getElementById('add-description').value,
+                    rating: 4.5,
+                    reviews: 0,
+                    exportCountries: ['Singapore', 'Japan', 'USA', 'Australia'],
+                    shippingTime: '2-3 hari domestik, 5-7 hari ekspor',
+                    createdAt: new Date().toISOString()
+                };
+                
+                // Add product to localStorage
+                const products = JSON.parse(localStorage.getItem('products')) || [];
+                products.push(newProduct);
+                localStorage.setItem('products', JSON.stringify(products));
+                
+                alert('Produk berhasil ditambahkan!');
+                closeEditModal();
+                loadDashboardData(user);
+            });
+        }
+
+        function createPost() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const postData = {
+                authorId: user.email,
+                category: 'Teknik Budidaya',
+                title: 'Post Baru',
+                content: 'Konten postingan baru...',
+                likes: 0,
+                comments: 0
+            };
+            
+            let posts = JSON.parse(localStorage.getItem('posts')) || [];
+            postData.id = 'POST-' + Date.now();
+            postData.createdAt = new Date().toISOString();
+            posts.push(postData);
+            localStorage.setItem('posts', JSON.stringify(posts));
+            
+            alert('Post baru berhasil dibuat!');
+            loadCommunityPosts(user.email);
+        }
     </script>
 </body>
 </html>

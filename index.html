@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lobster Marketplace</title>
+    <title>Lobster Marketplace - Platform Peternakan Lobster Indonesia</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -18,57 +18,214 @@
         </div>
         <div class="nav-user" id="nav-user"></div>
     </nav>
+    
+    <!-- Hero Section -->
     <header class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
-            <h1>Jelajahi Peternakan Lobster</h1>
-            <p>Marketplace lobster asli Indonesia, langsung dari peternak terbaik.</p>
+            <h1>Jelajahi Peternakan Lobster Sekarang</h1>
+            <p>Marketplace lobster asli Indonesia, langsung dari peternak terbaik dengan live kamera 24/7.</p>
             <div class="cta-buttons">
-                <button class="cta-primary" onclick="window.location.href='marketplace.html'">Beli Sekarang</button>
-                <button class="cta-secondary" onclick="window.location.href='login.html'">Gabung Sebagai Peternak</button>
+                <button class="cta-primary" onclick="window.location.href='marketplace.html'">Jelajahi Peternakan Sekarang</button>
+                <button class="cta-secondary" onclick="window.location.href='register.html'">Gabung Sebagai Peternak</button>
             </div>
         </div>
     </header>
+    
     <main>
+        <!-- Platform Keunggulan -->
         <section class="features">
-            <div class="feature">
-                <span>📷</span>
-                <h2>Live Kamera</h2>
-                <p>Lihat langsung kondisi kolam lobster secara real-time.</p>
-            </div>
-            <div class="feature">
-                <span>🇮🇩</span>
-                <h2>Asli dari Indonesia</h2>
-                <p>Produk lobster dari peternak lokal, kualitas ekspor.</p>
-            </div>
-            <div class="feature">
-                <span>🌐</span>
-                <h2>Ekspor Legal</h2>
-                <p>Proses ekspor resmi dan aman ke berbagai negara.</p>
+            <h2 class="section-title">Keunggulan Platform Kami</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <span class="feature-icon">📷</span>
+                    <h3>Live Kamera</h3>
+                    <p>Lihat langsung kondisi kolam lobster secara real-time dari peternak terpercaya.</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🇮🇩</span>
+                    <h3>Asli dari Indonesia</h3>
+                    <p>Produk lobster premium dari peternak lokal, kualitas ekspor terjamin.</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🌐</span>
+                    <h3>Ekspor Legal</h3>
+                    <p>Proses ekspor resmi dan aman ke berbagai negara dengan dokumen lengkap.</p>
+                </div>
             </div>
         </section>
+        
+        <!-- Showcase Peternak Unggulan -->
         <section class="showcase">
-            <h2>Peternak Unggulan</h2>
+            <h2 class="section-title">Peternak Unggulan</h2>
             <div class="showcase-grid">
                 <div class="showcase-card">
                     <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Lobster Nusantara" />
-                    <div class="showcase-name">Lobster Nusantara</div>
-                    <div class="showcase-location">Jawa Barat</div>
+                    <div class="showcase-content">
+                        <div class="showcase-name">Lobster Nusantara</div>
+                        <div class="showcase-location">Jawa Barat</div>
+                        <div class="showcase-rating">⭐⭐⭐⭐⭐ (4.8)</div>
+                        <div class="showcase-status">🟢 Live Kamera</div>
+                        <button class="showcase-btn" onclick="window.location.href='detail-toko.html'">Lihat Toko</button>
+                    </div>
                 </div>
                 <div class="showcase-card">
                     <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Sumatera Lobster Farm" />
-                    <div class="showcase-name">Sumatera Lobster Farm</div>
-                    <div class="showcase-location">Sumatera Utara</div>
+                    <div class="showcase-content">
+                        <div class="showcase-name">Sumatera Lobster Farm</div>
+                        <div class="showcase-location">Sumatera Utara</div>
+                        <div class="showcase-rating">⭐⭐⭐⭐☆ (4.2)</div>
+                        <div class="showcase-status">🟢 Live Kamera</div>
+                        <button class="showcase-btn" onclick="window.location.href='detail-toko.html'">Lihat Toko</button>
+                    </div>
                 </div>
                 <div class="showcase-card">
                     <img src="https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80" alt="Sulawesi Lobster" />
-                    <div class="showcase-name">Sulawesi Lobster</div>
-                    <div class="showcase-location">Sulawesi Selatan</div>
+                    <div class="showcase-content">
+                        <div class="showcase-name">Sulawesi Lobster</div>
+                        <div class="showcase-location">Sulawesi Selatan</div>
+                        <div class="showcase-rating">⭐⭐⭐⭐⭐ (4.9)</div>
+                        <div class="showcase-status">🟢 Live Kamera</div>
+                        <button class="showcase-btn" onclick="window.location.href='detail-toko.html'">Lihat Toko</button>
+                    </div>
                 </div>
             </div>
         </section>
+        
+        <!-- Testimonials Section -->
+        <section class="testimonials">
+            <div class="container">
+                <h2>🌟 Testimoni Pembeli Internasional</h2>
+                <p class="section-subtitle">Dari berbagai negara yang telah merasakan kualitas lobster Indonesia</p>
+                
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80" alt="Michael Chen" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Michael Chen</h4>
+                                <p class="testimonial-location">🇸🇬 Singapore</p>
+                                <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Lobster Indonesia sangat segar dan berkualitas tinggi. Live camera membantu saya melihat kondisi lobster sebelum membeli. Pengiriman cepat dan packing rapi!"</p>
+                        </div>
+                        <div class="testimonial-product">
+                            <span>🦞 Lobster Mutiara Premium</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?auto=format&fit=crop&w=80&q=80" alt="Sarah Johnson" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Sarah Johnson</h4>
+                                <p class="testimonial-location">🇺🇸 United States</p>
+                                <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Kualitas lobster Indonesia tidak kalah dengan lobster dari negara lain. Peternak sangat ramah dan informatif. Live camera memberikan transparansi penuh!"</p>
+                        </div>
+                        <div class="testimonial-product">
+                            <span>🦞 Lobster Air Laut Premium</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=80&q=80" alt="Yuki Tanaka" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Yuki Tanaka</h4>
+                                <p class="testimonial-location">🇯🇵 Japan</p>
+                                <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Lobster Indonesia sangat lezat dan segar. Sertifikasi halal dan kualitas ekspor membuat saya percaya dengan produk ini. Akan order lagi!"</p>
+                        </div>
+                        <div class="testimonial-product">
+                            <span>🦞 Lobster Batu Ekspor</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=80&q=80" alt="Emma Wilson" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Emma Wilson</h4>
+                                <p class="testimonial-location">🇦🇺 Australia</p>
+                                <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Pengalaman membeli lobster dari Indonesia sangat memuaskan. Peternak sangat profesional dan responsive. Kualitas lobster premium!"</p>
+                        </div>
+                        <div class="testimonial-product">
+                            <span>🦞 Lobster Air Tawar Super</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=80&q=80" alt="Hans Mueller" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>Hans Mueller</h4>
+                                <p class="testimonial-location">🇩🇪 Germany</p>
+                                <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Lobster Indonesia berkualitas ekspor dengan harga yang kompetitif. Live camera dan transparansi membuat saya percaya dengan kualitas produk."</p>
+                        </div>
+                        <div class="testimonial-product">
+                            <span>🦞 Lobster Mutiara Premium</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80" alt="David Kim" class="testimonial-avatar">
+                            <div class="testimonial-info">
+                                <h4>David Kim</h4>
+                                <p class="testimonial-location">🇰🇷 South Korea</p>
+                                <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-content">
+                            <p>"Sangat puas dengan kualitas lobster Indonesia. Peternak sangat ramah dan memberikan informasi lengkap. Pengiriman tepat waktu!"</p>
+                        </div>
+                        <div class="testimonial-product">
+                            <span>🦞 Lobster Air Laut Premium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonials-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Pembeli Internasional</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Negara Tujuan</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">4.9</div>
+                        <div class="stat-label">Rating Rata-rata</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Kepuasan Pelanggan</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Edukasi Section -->
         <section class="edukasi-home">
-            <h2>Edukasi Lobster</h2>
+            <h2 class="section-title">Edukasi Lobster</h2>
             <div class="edukasi-list">
                 <div class="edukasi-card">
                     <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Artikel 1" />
@@ -99,36 +256,55 @@
                 <a href="news.html">Lihat Semua Artikel Edukasi →</a>
             </div>
         </section>
-        <section class="leaderboard-home">
-            <h2>Top Peternak Bulan Ini</h2>
-            <div class="leaderboard-list">
-                <div class="leaderboard-card">
-                    <img src="peternak1.jpg" alt="Peternak 1" />
-                    <div>
-                        <h3>Lobster Nusantara</h3>
-                        <p>Total Penjualan: 120</p>
-                    </div>
-                </div>
-                <div class="leaderboard-card">
-                    <img src="peternak2.jpg" alt="Peternak 2" />
-                    <div>
-                        <h3>Sulawesi Lobster</h3>
-                        <p>Total Penjualan: 95</p>
-                    </div>
-                </div>
-                <div class="leaderboard-card">
-                    <img src="peternak3.jpg" alt="Peternak 3" />
-                    <div>
-                        <h3>Sumatera Lobster</h3>
-                        <p>Total Penjualan: 80</p>
-                    </div>
+        
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-content">
+                <h2>Siap Memulai Perjalanan Lobster Anda?</h2>
+                <p>Bergabunglah dengan ribuan pembeli dan peternak yang telah mempercayai platform kami.</p>
+                <div class="cta-buttons">
+                    <button class="cta-primary" onclick="window.location.href='marketplace.html'">Beli Sekarang</button>
+                    <button class="cta-secondary" onclick="window.location.href='register.html'">Gabung Sebagai Peternak</button>
                 </div>
             </div>
         </section>
     </main>
+    
     <footer class="footer">
-        <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tentang Kami</h3>
+                <p>Platform marketplace lobster terpercaya yang menghubungkan peternak Indonesia dengan pembeli global.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Kontak</h3>
+                <p>Email: info@indolobs.com</p>
+                <p>Phone: +62 21 1234 5678</p>
+                <p>Address: Jakarta, Indonesia</p>
+            </div>
+            <div class="footer-section">
+                <h3>Media Sosial</h3>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">LinkedIn</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Bahasa</h3>
+                <select id="languageSelect" class="lang-select">
+                    <option value="id">Indonesia</option>
+                    <option value="en">English</option>
+                    <option value="nl">Dutch</option>
+                </select>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Lobster Marketplace &copy; 2025 | Made in Indonesia</p>
+        </div>
     </footer>
+    
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {

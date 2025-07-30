@@ -3,8 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keranjang & Checkout Lobster</title>
+    <title>Keranjang & Checkout - Lobster Marketplace</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+        .cart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .cart-header {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .cart-header h1 {
+            color: #267a4a;
+            margin-bottom: 0.5rem;
+        }
+        .cart-steps {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+        .step.active {
+            color: #267a4a;
+            font-weight: bold;
+        }
+        .step.completed {
+            color: #28a745;
+        }
+        .cart-list {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .cart-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .cart-table th {
+            background: #f8f9fa;
+            padding: 1rem;
+            text-align: left;
+            color: #267a4a;
+            font-weight: bold;
+        }
+        .cart-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .cart-item-info h3 {
+            color: #267a4a;
+            margin-bottom: 0.3rem;
+        }
+        .cart-item-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .quantity-btn {
+            background: #267a4a;
+            color: #fff;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 0.3rem;
+        }
+        .remove-btn {
+            background: #e74c3c;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .cart-shipping {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .shipping-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .shipping-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #267a4a;
+            font-weight: bold;
+        }
+        .shipping-form input,
+        .shipping-form select,
+        .shipping-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        .shipping-form textarea {
+            grid-column: 1 / -1;
+            resize: vertical;
+        }
+        .ongkir-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+        .cart-payment {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .payment-method {
+            border: 2px solid #eee;
+            border-radius: 8px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .payment-method:hover {
+            border-color: #267a4a;
+        }
+        .payment-method.selected {
+            border-color: #267a4a;
+            background: #f0f8f0;
+        }
+        .payment-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .cart-summary {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #267a4a;
+        }
+        .cart-pay-btn {
+            background: #267a4a;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        .cart-pay-btn:hover {
+            background: #1e3a3a;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+        .empty-cart h2 {
+            color: #267a4a;
+            margin-bottom: 1rem;
+        }
+        .continue-shopping {
+            background: #f5b301;
+            color: #1a3c2b;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+        @media (max-width: 768px) {
+            .shipping-form {
+                grid-template-columns: 1fr;
+            }
+            .cart-table {
+                font-size: 0.9rem;
+            }
+            .cart-item img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="main-navbar">
@@ -18,70 +262,381 @@
         </div>
         <div class="nav-user" id="nav-user"></div>
     </nav>
+    
     <main class="cart-container">
-        <h1>Keranjang Belanja</h1>
+        <!-- Cart Header -->
+        <section class="cart-header">
+            <h1>🛒 Keranjang Belanja</h1>
+            <p>Lengkapi data pengiriman dan pembayaran untuk menyelesaikan pesanan</p>
+            <div class="cart-steps">
+                <div class="step active">1. Keranjang</div>
+                <div class="step">2. Pengiriman</div>
+                <div class="step">3. Pembayaran</div>
+                <div class="step">4. Konfirmasi</div>
+            </div>
+        </section>
+        
+        <!-- Cart Items -->
         <section class="cart-list">
+            <h2>Daftar Produk</h2>
             <table class="cart-table">
                 <thead>
                     <tr>
-                        <th>Gambar</th>
-                        <th>Nama Produk</th>
-                        <th>Jumlah</th>
+                        <th>Produk</th>
                         <th>Harga</th>
+                        <th>Jumlah</th>
                         <th>Subtotal</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody id="cart-items">
-                    <!-- Diisi JS -->
+                    <!-- Diisi JavaScript -->
                 </tbody>
             </table>
         </section>
+        
+        <!-- Shipping Information -->
         <section class="cart-shipping">
-            <h2>Estimasi Ongkir Ekspor</h2>
-            <label for="shipping-country">Negara Tujuan</label>
-            <select id="negara-ekspor">
-                <option value="">Pilih Negara Tujuan</option>
-                <option value="singapore">Singapura</option>
-                <option value="japan">Jepang</option>
-                <option value="usa">Amerika Serikat</option>
-            </select>
-            <div id="ongkir-info"></div>
-            <div id="total-belanja">Total: Rp 0</div>
-        </section>
-        <section class="cart-address">
-            <h2>Data Pengiriman</h2>
+            <h2>📦 Data Pengiriman</h2>
             <form id="shipping-form">
-                <label for="receiver-name">Nama Penerima</label>
-                <input type="text" id="receiver-name" required>
-                <label for="receiver-address">Alamat Lengkap</label>
-                <textarea id="receiver-address" required></textarea>
-                <label for="receiver-country">Negara Tujuan</label>
-                <input type="text" id="receiver-country" required>
+                <div class="shipping-form">
+                    <div>
+                        <label for="receiver-name">Nama Penerima *</label>
+                        <input type="text" id="receiver-name" required>
+                    </div>
+                    <div>
+                        <label for="receiver-phone">Nomor Telepon *</label>
+                        <input type="tel" id="receiver-phone" required>
+                    </div>
+                    <div>
+                        <label for="receiver-email">Email *</label>
+                        <input type="email" id="receiver-email" required>
+                    </div>
+                    <div>
+                        <label for="receiver-country">Negara Tujuan *</label>
+                        <select id="receiver-country" required onchange="calculateShipping()">
+                            <option value="">Pilih Negara</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="SG">Singapore</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="JP">Japan</option>
+                            <option value="US">United States</option>
+                            <option value="AU">Australia</option>
+                            <option value="NL">Netherlands</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="receiver-city">Kota *</label>
+                        <input type="text" id="receiver-city" required>
+                    </div>
+                    <div>
+                        <label for="receiver-postal">Kode Pos *</label>
+                        <input type="text" id="receiver-postal" required>
+                    </div>
+                    <div>
+                        <label for="receiver-address">Alamat Lengkap *</label>
+                        <textarea id="receiver-address" rows="3" required></textarea>
+                    </div>
+                </div>
             </form>
-        </section>
-        <section class="cart-payment">
-            <h2>Metode Pembayaran</h2>
-            <select id="payment-method">
-                <option value="transfer">Transfer Bank</option>
-                <option value="ewallet">E-Wallet</option>
-                <option value="cod">COD</option>
-            </select>
-        </section>
-        <section class="cart-summary">
-            <h2>Ringkasan Pesanan</h2>
-            <div id="order-summary">
-                <!-- Diisi JS -->
+            
+            <div class="ongkir-info" id="ongkir-info">
+                <h3>Estimasi Ongkir Ekspor</h3>
+                <p>Pilih negara tujuan untuk melihat estimasi ongkir</p>
             </div>
-            <button id="pay-btn" class="cart-pay-btn">Bayar Sekarang</button>
+        </section>
+        
+        <!-- Payment Method -->
+        <section class="cart-payment">
+            <h2>💳 Metode Pembayaran</h2>
+            <div class="payment-methods">
+                <div class="payment-method" onclick="selectPayment('transfer')">
+                    <div class="payment-icon">🏦</div>
+                    <div class="payment-name">Transfer Bank</div>
+                    <div class="payment-desc">BCA, Mandiri, BNI</div>
+                </div>
+                <div class="payment-method" onclick="selectPayment('ewallet')">
+                    <div class="payment-icon">📱</div>
+                    <div class="payment-name">E-Wallet</div>
+                    <div class="payment-desc">GoPay, OVO, DANA</div>
+                </div>
+                <div class="payment-method" onclick="selectPayment('cod')">
+                    <div class="payment-icon">💵</div>
+                    <div class="payment-name">COD</div>
+                    <div class="payment-desc">Bayar di Tempat</div>
+                </div>
+                <div class="payment-method" onclick="selectPayment('crypto')">
+                    <div class="payment-icon">₿</div>
+                    <div class="payment-name">Cryptocurrency</div>
+                    <div class="payment-desc">Bitcoin, Ethereum</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Order Summary -->
+        <section class="cart-summary">
+            <h2>📋 Ringkasan Pesanan</h2>
+            <div id="order-summary">
+                <!-- Diisi JavaScript -->
+            </div>
+            <button id="pay-btn" class="cart-pay-btn" onclick="processPayment()">💳 Bayar Sekarang</button>
         </section>
     </main>
-    <select id="languageSelect" class="lang-select">
-      <option value="id">Indonesia</option>
-      <option value="en">English</option>
-      <option value="nl">Dutch</option>
-    </select>
-    <span data-i18n="title"></span>
-    <button data-i18n="buy"></button>
-    <script src="script.js"></script>
+    
+    <footer class="footer">
+        <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const navUser = document.getElementById('nav-user');
+            if (user) {
+                navUser.innerHTML = `<span>👋 Hai, ${user.name}</span>
+                    <button id="logoutBtn" class="logout-btn">Logout</button>`;
+                document.getElementById("logoutBtn").addEventListener("click", function() {
+                    localStorage.removeItem("currentUser");
+                    window.location.href = "login.html";
+                });
+            } else {
+                navUser.innerHTML = `<a href="login.html" class="login-btn">Login</a>`;
+            }
+            
+            loadCart();
+            setupEventListeners();
+        });
+
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItems = document.getElementById('cart-items');
+            const orderSummary = document.getElementById('order-summary');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="empty-cart">
+                            <h2>🛒 Keranjang Belanja Kosong</h2>
+                            <p>Belum ada produk di keranjang belanja Anda</p>
+                            <button class="continue-shopping" onclick="window.location.href='marketplace.html'">
+                                Lanjutkan Belanja
+                            </button>
+                        </td>
+                    </tr>
+                `;
+                orderSummary.innerHTML = '<p>Keranjang kosong</p>';
+                return;
+            }
+            
+            let total = 0;
+            cartItems.innerHTML = '';
+            
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                
+                cartItems.innerHTML += `
+                    <tr>
+                        <td>
+                            <div class="cart-item">
+                                <img src="${item.image}" alt="${item.name}">
+                                <div class="cart-item-info">
+                                    <h3>${item.name}</h3>
+                                    <p>Lobster Premium</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>Rp ${item.price.toLocaleString()}</td>
+                        <td>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                                <input type="number" class="quantity-input" value="${item.quantity}" 
+                                       onchange="updateQuantity(${index}, this.value - ${item.quantity})">
+                                <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                            </div>
+                        </td>
+                        <td>Rp ${subtotal.toLocaleString()}</td>
+                        <td>
+                            <button class="remove-btn" onclick="removeItem(${index})">🗑️</button>
+                        </td>
+                    </tr>
+                `;
+            });
+            
+            updateOrderSummary(total);
+        }
+
+        function updateQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity = Math.max(1, cart[index].quantity + change);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function removeItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function updateOrderSummary(subtotal) {
+            const shipping = parseFloat(document.getElementById('shipping-cost')?.textContent.replace(/[^\d]/g, '') || '0');
+            const total = subtotal + shipping;
+            
+            document.getElementById('order-summary').innerHTML = `
+                <div class="summary-item">
+                    <span>Subtotal Produk:</span>
+                    <span>Rp ${subtotal.toLocaleString()}</span>
+                </div>
+                <div class="summary-item">
+                    <span>Ongkos Kirim:</span>
+                    <span id="shipping-cost">Rp ${shipping.toLocaleString()}</span>
+                </div>
+                <div class="summary-item">
+                    <span>Total Pembayaran:</span>
+                    <span>Rp ${total.toLocaleString()}</span>
+                </div>
+            `;
+        }
+
+        function calculateShipping() {
+            const country = document.getElementById('receiver-country').value;
+            const ongkirInfo = document.getElementById('ongkir-info');
+            
+            const shippingRates = {
+                'ID': { cost: 50000, time: '2-3 hari', method: 'Domestik' },
+                'SG': { cost: 250000, time: '3-5 hari', method: 'Ekspor' },
+                'MY': { cost: 200000, time: '3-4 hari', method: 'Ekspor' },
+                'JP': { cost: 350000, time: '5-7 hari', method: 'Ekspor' },
+                'US': { cost: 450000, time: '7-10 hari', method: 'Ekspor' },
+                'AU': { cost: 400000, time: '6-8 hari', method: 'Ekspor' },
+                'NL': { cost: 500000, time: '8-12 hari', method: 'Ekspor' }
+            };
+            
+            if (country && shippingRates[country]) {
+                const rate = shippingRates[country];
+                ongkirInfo.innerHTML = `
+                    <h3>📦 Estimasi Pengiriman ke ${document.getElementById('receiver-country').options[document.getElementById('receiver-country').selectedIndex].text}</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <strong>Ongkos Kirim:</strong><br>
+                            Rp ${rate.cost.toLocaleString()}
+                        </div>
+                        <div>
+                            <strong>Estimasi Waktu:</strong><br>
+                            ${rate.time}
+                        </div>
+                        <div>
+                            <strong>Metode:</strong><br>
+                            ${rate.method}
+                        </div>
+                    </div>
+                `;
+                
+                // Update shipping cost in order summary
+                const shippingCostElement = document.getElementById('shipping-cost');
+                if (shippingCostElement) {
+                    shippingCostElement.textContent = `Rp ${rate.cost.toLocaleString()}`;
+                }
+                
+                // Recalculate total
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                updateOrderSummary(subtotal);
+            } else {
+                ongkirInfo.innerHTML = '<h3>Estimasi Ongkir Ekspor</h3><p>Pilih negara tujuan untuk melihat estimasi ongkir</p>';
+            }
+        }
+
+        function selectPayment(method) {
+            // Remove selected class from all payment methods
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked payment method
+            event.currentTarget.classList.add('selected');
+            
+            // Store selected payment method
+            localStorage.setItem('selectedPayment', method);
+        }
+
+        function processPayment() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                alert('Silakan login terlebih dahulu untuk melanjutkan pembayaran');
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Keranjang belanja kosong');
+                return;
+            }
+            
+            const receiverName = document.getElementById('receiver-name').value;
+            const receiverCountry = document.getElementById('receiver-country').value;
+            const selectedPayment = localStorage.getItem('selectedPayment');
+            
+            if (!receiverName || !receiverCountry || !selectedPayment) {
+                alert('Lengkapi semua data pengiriman dan pilih metode pembayaran');
+                return;
+            }
+            
+            // Create order
+            const orderData = {
+                buyerId: user.email,
+                farmerId: cart[0].farmerId || 'ahmad@demo.com', // Default farmer for demo
+                productId: cart[0].productId,
+                quantity: cart.reduce((sum, item) => sum + item.quantity, 0),
+                totalPrice: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                shippingAddress: document.getElementById('receiver-address').value,
+                shippingCountry: receiverCountry,
+                receiverName: receiverName,
+                receiverPhone: document.getElementById('receiver-phone').value,
+                receiverEmail: document.getElementById('receiver-email').value,
+                paymentMethod: selectedPayment
+            };
+            
+            // Add shipping cost
+            const shippingRates = {
+                'ID': 50000, 'SG': 250000, 'MY': 200000, 'JP': 350000,
+                'US': 450000, 'AU': 400000, 'NL': 500000
+            };
+            orderData.totalPrice += shippingRates[receiverCountry] || 0;
+            
+            // Save order to localStorage
+            let orders = JSON.parse(localStorage.getItem('orders')) || [];
+            orderData.id = 'ORD-' + new Date().getFullYear() + '-' + String(orders.length + 1).padStart(3, '0');
+            orderData.createdAt = new Date().toISOString();
+            orderData.status = 'new';
+            orders.push(orderData);
+            localStorage.setItem('orders', JSON.stringify(orders));
+            
+            // Process payment (simulation)
+            alert(`Pembayaran sedang diproses...\n\nPesanan Anda akan dikonfirmasi melalui email.`);
+            
+            // Clear cart after successful payment
+            localStorage.removeItem('cart');
+            localStorage.removeItem('selectedPayment');
+            
+            // Redirect to confirmation page or dashboard
+            window.location.href = 'dashboard.html';
+        }
+
+        function setupEventListeners() {
+            // Shipping form validation
+            const shippingForm = document.getElementById('shipping-form');
+            if (shippingForm) {
+                shippingForm.addEventListener('input', function() {
+                    // Auto-calculate shipping when country changes
+                    if (event.target.id === 'receiver-country') {
+                        calculateShipping();
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>

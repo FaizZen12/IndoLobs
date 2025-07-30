@@ -3,8 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="title">Detail Toko Peternak</title>
+    <title>Detail Toko Peternak - Lobster Marketplace</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+        .toko-detail-main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        .toko-header {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .toko-info {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .toko-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #267a4a;
+        }
+        .toko-details h1 {
+            color: #267a4a;
+            margin-bottom: 0.5rem;
+            font-size: 2rem;
+        }
+        .toko-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .toko-location, .toko-rating, .toko-legal {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .legal-status.legal-yes {
+            color: #28a745;
+        }
+        .toko-desc {
+            color: #1e3a3a;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        .toko-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .toko-actions button {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .chat-btn {
+            background: #267a4a;
+            color: #fff;
+        }
+        .chat-btn:hover {
+            background: #1e3a3a;
+        }
+        .follow-btn {
+            background: #f5b301;
+            color: #1a3c2b;
+        }
+        .follow-btn:hover {
+            background: #e6a800;
+        }
+        .wishlist-btn {
+            background: #fff;
+            color: #e74c3c;
+            border: 2px solid #e74c3c;
+        }
+        .wishlist-btn:hover {
+            background: #e74c3c;
+            color: #fff;
+        }
+        .toko-live {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .toko-live h2 {
+            color: #267a4a;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .kamera-preview {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            border-radius: 12px;
+            background: #000;
+            object-fit: cover;
+        }
+        .camera-controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .camera-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            background: #267a4a;
+            color: #fff;
+            cursor: pointer;
+        }
+        .toko-gallery {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .gallery-grid img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+        }
+        .toko-products {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .product-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+        .product-card:hover {
+            box-shadow: 0 4px 16px rgba(38,122,74,0.15);
+        }
+        .product-img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+        .product-info {
+            padding: 1rem;
+        }
+        .product-name {
+            font-weight: bold;
+            color: #267a4a;
+            margin-bottom: 0.5rem;
+        }
+        .product-price {
+            color: #f5b301;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .product-stock {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .view-product-btn {
+            background: #267a4a;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .toko-review {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .review-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .review-author {
+            font-weight: bold;
+            color: #267a4a;
+        }
+        .review-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .review-rating {
+            color: #f5b301;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        .review-text {
+            color: #1e3a3a;
+            line-height: 1.5;
+        }
+        .toko-profile {
+            background: #fff;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+        }
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #267a4a;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .toko-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            .toko-actions {
+                justify-content: center;
+            }
+            .camera-controls {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="main-navbar">
@@ -18,62 +299,391 @@
         </div>
         <div class="nav-user" id="nav-user"></div>
     </nav>
+    
     <main class="toko-detail-main">
-        <section class="toko-info">
-            <h1>Lobster Nusantara</h1>
-            <div class="toko-meta">
-                <span class="toko-location">Jawa Barat</span>
-                <span class="toko-rating">★★★★☆ (4.8)</span>
-                <span class="toko-legal">Legalitas: <span class="legal-status legal-yes">✅</span></span>
-            </div>
-            <p class="toko-desc">Peternakan lobster air tawar dan laut, kualitas ekspor, live kamera 24 jam.</p>
-            <div class="toko-actions">
-                <button onclick="alert('Chat Peternak')">Chat Peternak</button>
-                <button onclick="alert('Followed!')">Follow</button>
-                <button class="wishlist-btn" data-id="peternak1">❤️</button>
+        <!-- Header Toko -->
+        <section class="toko-header">
+            <div class="toko-info">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=200&q=80" alt="Lobster Nusantara" class="toko-avatar">
+                <div class="toko-details">
+                    <h1>Lobster Nusantara</h1>
+                    <div class="toko-meta">
+                        <span class="toko-location">📍 Jawa Barat, Indonesia</span>
+                        <span class="toko-rating">⭐⭐⭐⭐⭐ (4.8)</span>
+                        <span class="toko-legal">Legalitas: <span class="legal-status legal-yes">✅ Terverifikasi</span></span>
+                    </div>
+                    <p class="toko-desc">
+                        Peternakan lobster air tawar dan laut premium dengan kualitas ekspor. 
+                        Menggunakan teknologi budidaya modern dengan live kamera 24/7 untuk transparansi penuh. 
+                        Sudah berpengalaman lebih dari 10 tahun dalam budidaya lobster berkualitas tinggi.
+                    </p>
+                    <div class="toko-actions">
+                        <button class="chat-btn" onclick="openChat()">💬 Chat Peternak</button>
+                        <button class="follow-btn" onclick="followShop()" id="followBtn">👥 Follow</button>
+                        <button class="wishlist-btn" onclick="toggleWishlist()" id="wishlistBtn">❤️</button>
+                    </div>
+                </div>
             </div>
         </section>
+        
+        <!-- Live Camera View -->
         <section class="toko-live">
-            <h2>Live Kamera</h2>
-            <video controls class="kamera-preview">
+            <h2>📷 Live Kamera Peternakan</h2>
+            <video controls class="kamera-preview" id="liveCamera">
                 <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
                 Video tidak tersedia.
             </video>
+            <div class="camera-controls">
+                <button class="camera-btn" onclick="switchCamera('pond1')">Kolam 1</button>
+                <button class="camera-btn" onclick="switchCamera('pond2')">Kolam 2</button>
+                <button class="camera-btn" onclick="switchCamera('pond3')">Kolam 3</button>
+                <button class="camera-btn" onclick="fullscreenCamera()">⛶ Fullscreen</button>
+            </div>
         </section>
+        
+        <!-- Galeri Foto/Video -->
         <section class="toko-gallery">
-            <h2>Galeri Budidaya</h2>
+            <h2>📸 Galeri Peternakan</h2>
             <div class="gallery-grid">
-                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Galeri 1">
-                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Galeri 2">
-                <img src="https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80" alt="Galeri 3">
+                <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Galeri 1" onclick="openGallery(0)">
+                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Galeri 2" onclick="openGallery(1)">
+                <img src="https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80" alt="Galeri 3" onclick="openGallery(2)">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80" alt="Galeri 4" onclick="openGallery(3)">
+                <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Galeri 5" onclick="openGallery(4)">
+                <img src="https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80" alt="Galeri 6" onclick="openGallery(5)">
             </div>
         </section>
-        <section class="toko-sertifikat">
-            <h2>Sertifikat Izin Budidaya</h2>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Certificate_template.png" alt="Sertifikat Dummy" class="sertifikat-img">
+        
+        <!-- Produk Lobster -->
+        <section class="toko-products">
+            <h2>🦞 Produk Lobster</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=300&q=80" alt="Lobster Air Tawar" class="product-img">
+                    <div class="product-info">
+                        <div class="product-name">Lobster Air Tawar Super</div>
+                        <div class="product-price">Rp 650.000/kg</div>
+                        <div class="product-stock">Stok: 25 kg tersedia</div>
+                        <button class="view-product-btn" onclick="window.location.href='detail-produk.html'">Lihat Detail</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=300&q=80" alt="Lobster Mutiara" class="product-img">
+                    <div class="product-info">
+                        <div class="product-name">Lobster Mutiara Premium</div>
+                        <div class="product-price">Rp 1.200.000/kg</div>
+                        <div class="product-stock">Stok: 15 kg tersedia</div>
+                        <button class="view-product-btn" onclick="window.location.href='detail-produk.html'">Lihat Detail</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=300&q=80" alt="Lobster Batu" class="product-img">
+                    <div class="product-info">
+                        <div class="product-name">Lobster Batu Ekspor</div>
+                        <div class="product-price">Rp 850.000/kg</div>
+                        <div class="product-stock">Stok: 30 kg tersedia</div>
+                        <button class="view-product-btn" onclick="window.location.href='detail-produk.html'">Lihat Detail</button>
+                    </div>
+                </div>
+            </div>
         </section>
+        
+        <!-- Ulasan Pembeli -->
         <section class="toko-review">
-            <h2>Review & Komentar Pembeli</h2>
+            <h2>⭐ Ulasan Pembeli</h2>
             <div class="review-card">
-                <div class="review-rating">★★★★★</div>
-                <div class="review-text">Lobster sehat dan segar, packing rapi. Terima kasih!</div>
-                <div class="review-author">- Budi, Jakarta</div>
+                <div class="review-header">
+                    <div class="review-author">Budi Santoso</div>
+                    <div class="review-date">2 hari yang lalu</div>
+                </div>
+                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">
+                    "Lobster sangat segar dan berkualitas tinggi. Pengiriman cepat dan packing rapi. 
+                    Live camera sangat membantu untuk melihat kondisi lobster sebelum membeli. 
+                    Sangat puas dengan pelayanan!"
+                </div>
             </div>
             <div class="review-card">
-                <div class="review-rating">★★★★☆</div>
-                <div class="review-text">Pelayanan ramah, pengiriman cepat.</div>
-                <div class="review-author">- Sari, Surabaya</div>
+                <div class="review-header">
+                    <div class="review-author">Sarah Johnson</div>
+                    <div class="review-date">1 minggu yang lalu</div>
+                </div>
+                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+                <div class="review-text">
+                    "Kualitas lobster Indonesia tidak kalah dengan lobster dari negara lain. 
+                    Peternak sangat ramah dan informatif. Highly recommended!"
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="review-author">Michael Chen</div>
+                    <div class="review-date">2 minggu yang lalu</div>
+                </div>
+                <div class="review-rating">⭐⭐⭐⭐☆</div>
+                <div class="review-text">
+                    "Pelayanan sangat baik, lobster segar dan sehat. 
+                    Proses pengiriman ekspor berjalan lancar. Akan beli lagi!"
+                </div>
+            </div>
+        </section>
+        
+        <!-- Profil Peternak -->
+        <section class="toko-profile">
+            <h2>👨‍🌾 Profil Peternak</h2>
+            <p>Peternak berpengalaman dengan sertifikasi budidaya lobster berkualitas ekspor. 
+            Menggunakan teknologi modern dan metode budidaya yang ramah lingkungan.</p>
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <div class="stat-value">10+</div>
+                    <div class="stat-label">Tahun Pengalaman</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">500+</div>
+                    <div class="stat-label">Transaksi Berhasil</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">15</div>
+                    <div class="stat-label">Kolam Budidaya</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4.8</div>
+                    <div class="stat-label">Rating Rata-rata</div>
+                </div>
             </div>
         </section>
     </main>
+    
     <footer class="footer">
         <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
     </footer>
-    <select id="languageSelect" class="lang-select">
-        <option value="id">Indonesia</option>
-        <option value="en">English</option>
-        <option value="nl">Dutch</option>
-    </select>
-    <button data-i18n="buy"></button>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const navUser = document.getElementById('nav-user');
+            if (user) {
+                navUser.innerHTML = `<span>👋 Hai, ${user.name}</span>
+                    <button id="logoutBtn" class="logout-btn">Logout</button>`;
+                document.getElementById("logoutBtn").addEventListener("click", function() {
+                    localStorage.removeItem("currentUser");
+                    window.location.href = "login.html";
+                });
+            } else {
+                navUser.innerHTML = `<a href="login.html" class="login-btn">Login</a>`;
+            }
+            
+            loadShopData();
+        });
+
+        function loadShopData() {
+            // Get farmer ID from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const farmerId = urlParams.get('farmer');
+            
+            if (!farmerId) {
+                alert('Toko tidak ditemukan');
+                window.location.href = 'marketplace.html';
+                return;
+            }
+            
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const products = JSON.parse(localStorage.getItem('products')) || [];
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            
+            const farmer = users.find(u => u.email === farmerId && u.type === 'farmer');
+            
+            if (!farmer) {
+                alert('Toko tidak ditemukan');
+                window.location.href = 'marketplace.html';
+                return;
+            }
+            
+            // Get farmer's products
+            const farmerProducts = products.filter(p => p.farmerId === farmerId);
+            
+            // Get farmer's orders for stats
+            const farmerOrders = orders.filter(o => o.farmerId === farmerId);
+            const totalSales = farmerOrders.length;
+            const totalRevenue = farmerOrders.reduce((sum, order) => sum + order.totalPrice, 0);
+            
+            // Get reviews for farmer's products
+            const productIds = farmerProducts.map(p => p.id);
+            const farmerReviews = reviews.filter(r => productIds.includes(r.productId));
+            
+            // Calculate average rating
+            const avgRating = farmerProducts.length > 0 ? 
+                farmerProducts.reduce((sum, p) => sum + p.rating, 0) / farmerProducts.length : 0;
+            
+            updateShopHeader(farmer, avgRating, totalSales);
+            updateShopProducts(farmerProducts);
+            updateShopReviews(farmerReviews);
+            updateShopStats(farmer, totalSales, totalRevenue);
+        }
+
+        function updateShopHeader(farmer, avgRating, totalSales) {
+            const shopName = document.querySelector('.toko-details h1');
+            const shopLocation = document.querySelector('.toko-location');
+            const shopRating = document.querySelector('.toko-rating');
+            const shopDesc = document.querySelector('.toko-desc');
+            
+            if (shopName) shopName.textContent = farmer.business;
+            if (shopLocation) shopLocation.textContent = `📍 ${farmer.location}, Indonesia`;
+            if (shopRating) shopRating.innerHTML = `⭐⭐⭐⭐⭐ (${avgRating.toFixed(1)})`;
+            if (shopDesc) shopDesc.textContent = farmer.description || 'Peternakan lobster premium dengan teknologi modern dan live kamera 24/7 untuk transparansi penuh.';
+        }
+
+        function updateShopProducts(products) {
+            const productsGrid = document.querySelector('.products-grid');
+            if (!productsGrid) return;
+            
+            if (products.length === 0) {
+                productsGrid.innerHTML = '<p style="text-align: center; color: #666;">Belum ada produk tersedia</p>';
+                return;
+            }
+            
+            productsGrid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}" class="product-img">
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">Rp ${product.price.toLocaleString()}/kg</div>
+                        <div class="product-stock">Stok: ${product.stock} kg tersedia</div>
+                        <button class="view-product-btn" onclick="window.location.href='detail-produk.html?id=${product.id}'">Lihat Detail</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateShopReviews(reviews) {
+            const reviewsSection = document.querySelector('.toko-review');
+            if (!reviewsSection) return;
+            
+            const reviewsList = reviewsSection.querySelector('.review-card');
+            if (!reviewsList) return;
+            
+            if (reviews.length === 0) {
+                reviewsSection.innerHTML = '<h2>⭐ Ulasan Pembeli</h2><p style="text-align: center; color: #666;">Belum ada ulasan</p>';
+                return;
+            }
+            
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const reviewsHTML = reviews.map(review => {
+                const buyer = users.find(u => u.email === review.buyerId);
+                return `
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-author">${buyer ? buyer.name : 'Anonymous'}</div>
+                            <div class="review-date">${formatDate(review.createdAt)}</div>
+                        </div>
+                        <div class="review-rating">${'⭐'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                        <div class="review-text">"${review.comment}"</div>
+                    </div>
+                `;
+            }).join('');
+            
+            reviewsSection.innerHTML = `<h2>⭐ Ulasan Pembeli</h2>${reviewsHTML}`;
+        }
+
+        function updateShopStats(farmer, totalSales, totalRevenue) {
+            const statsSection = document.querySelector('.profile-stats');
+            if (!statsSection) return;
+            
+            const experience = Math.floor((new Date() - new Date(farmer.createdAt)) / (1000 * 60 * 60 * 24 * 365));
+            
+            statsSection.innerHTML = `
+                <div class="stat-item">
+                    <div class="stat-value">${experience}+</div>
+                    <div class="stat-label">Tahun Pengalaman</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">${totalSales}+</div>
+                    <div class="stat-label">Transaksi Berhasil</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">15</div>
+                    <div class="stat-label">Kolam Budidaya</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4.8</div>
+                    <div class="stat-label">Rating Rata-rata</div>
+                </div>
+            `;
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (diffDays === 1) return '1 hari yang lalu';
+            if (diffDays < 7) return `${diffDays} hari yang lalu`;
+            if (diffDays < 30) return `${Math.floor(diffDays / 7)} minggu yang lalu`;
+            if (diffDays < 365) return `${Math.floor(diffDays / 30)} bulan yang lalu`;
+            return `${Math.floor(diffDays / 365)} tahun yang lalu`;
+        }
+
+        function openChat() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                alert('Silakan login terlebih dahulu untuk chat dengan peternak');
+                window.location.href = 'login.html';
+                return;
+            }
+            alert('Membuka chat dengan peternak...');
+        }
+
+        function followShop() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                alert('Silakan login terlebih dahulu untuk follow toko');
+                window.location.href = 'login.html';
+                return;
+            }
+            const btn = document.getElementById('followBtn');
+            if (btn.textContent.includes('Follow')) {
+                btn.textContent = '👥 Following';
+                btn.style.background = '#28a745';
+            } else {
+                btn.textContent = '👥 Follow';
+                btn.style.background = '#f5b301';
+            }
+        }
+
+        function toggleWishlist() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                alert('Silakan login terlebih dahulu untuk menambah ke wishlist');
+                window.location.href = 'login.html';
+                return;
+            }
+            const btn = document.getElementById('wishlistBtn');
+            if (btn.textContent.includes('❤️')) {
+                btn.textContent = '💔';
+                btn.style.background = '#e74c3c';
+                btn.style.color = '#fff';
+            } else {
+                btn.textContent = '❤️';
+                btn.style.background = '#fff';
+                btn.style.color = '#e74c3c';
+            }
+        }
+
+        function switchCamera(pond) {
+            alert(`Beralih ke kamera ${pond}`);
+        }
+
+        function fullscreenCamera() {
+            const video = document.getElementById('liveCamera');
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            }
+        }
+
+        function openGallery(index) {
+            alert(`Membuka galeri foto ${index + 1}`);
+        }
+    </script>
 </body>
 </html>

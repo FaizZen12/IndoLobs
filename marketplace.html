@@ -32,12 +32,35 @@
             font-size: 1rem;
             min-width: 160px;
         }
+        .filter-advanced {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .filter-chip {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .filter-chip:hover,
+        .filter-chip.active {
+            background: #f5b301;
+            color: #1a3c2b;
+        }
         .farmers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin: 2rem auto;
             max-width: 1200px;
+            padding: 0 1rem;
         }
         .farmer-card {
             background: #fff;
@@ -51,11 +74,11 @@
         }
         .farmer-card:hover {
             box-shadow: 0 6px 24px rgba(38,122,74,0.18);
-            transform: translateY(-4px) scale(1.03);
+            transform: translateY(-4px) scale(1.02);
         }
         .farmer-cover {
             width: 100%;
-            height: 140px;
+            height: 180px;
             object-fit: cover;
             background: #e0f7fa;
         }
@@ -76,24 +99,36 @@
         .verified-badge {
             background: #f5b301;
             color: #fff;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             border-radius: 6px;
             padding: 0.1rem 0.5rem;
             font-weight: bold;
-            margin-left: 0.3rem;
         }
         .farmer-location {
             font-size: 0.98rem;
             color: #1e3a3a;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
         .farmer-rating {
             color: #f5b301;
             font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .rating-number {
+            color: #666;
+            font-size: 0.9rem;
         }
         .camera-status {
-            font-size: 0.98rem;
+            font-size: 0.9rem;
             font-weight: 500;
             margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
         .farmer-category {
             display: inline-block;
@@ -104,6 +139,13 @@
             padding: 0.2rem 0.7rem;
             margin-bottom: 0.5rem;
             margin-right: 0.5rem;
+        }
+        .farmer-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.5rem;
         }
         .lihat-toko-btn {
             background: #f5b301;
@@ -120,6 +162,11 @@
         .lihat-toko-btn:hover {
             background: #267a4a;
         }
+        .no-results {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #666;
+        }
         @media (max-width: 700px) {
             .farmers-grid {
                 grid-template-columns: 1fr;
@@ -127,6 +174,10 @@
             }
             .marketplace-header {
                 padding: 1.2rem 0.5rem 0.7rem 0.5rem;
+            }
+            .search-filter-bar {
+                flex-direction: column;
+                align-items: center;
             }
         }
     </style>
@@ -143,36 +194,62 @@
         </div>
         <div class="nav-user" id="nav-user"></div>
     </nav>
+    
     <header class="marketplace-header">
         <h1>Marketplace Peternakan Lobster</h1>
+        <p>Temukan peternak lobster terpercaya dengan live kamera dan kualitas ekspor</p>
+        
         <div class="search-filter-bar">
-            <input type="text" id="search" placeholder="Cari peternak...">
+            <input type="text" id="search" placeholder="Cari peternak atau lokasi...">
             <select id="filter-location">
-                <option value="">Lokasi</option>
+                <option value="">Semua Lokasi</option>
                 <option value="Jawa Barat">Jawa Barat</option>
+                <option value="Jawa Tengah">Jawa Tengah</option>
+                <option value="Jawa Timur">Jawa Timur</option>
                 <option value="Sumatera Utara">Sumatera Utara</option>
+                <option value="Sumatera Selatan">Sumatera Selatan</option>
                 <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+                <option value="Kalimantan Barat">Kalimantan Barat</option>
             </select>
             <select id="filter-category">
-                <option value="">Jenis Lobster</option>
-                <option value="Air Tawar">Air Tawar</option>
-                <option value="Air Laut">Air Laut</option>
+                <option value="">Semua Jenis Lobster</option>
+                <option value="Air Tawar">Lobster Air Tawar</option>
+                <option value="Air Laut">Lobster Air Laut</option>
+                <option value="Mutiara">Lobster Mutiara</option>
+                <option value="Batu">Lobster Batu</option>
+            </select>
+            <select id="filter-price">
+                <option value="">Semua Harga</option>
+                <option value="0-500000">Dibawah Rp 500.000</option>
+                <option value="500000-1000000">Rp 500.000 - 1.000.000</option>
+                <option value="1000000-2000000">Rp 1.000.000 - 2.000.000</option>
+                <option value="2000000+">Diatas Rp 2.000.000</option>
+            </select>
+            <select id="filter-rating">
+                <option value="">Semua Rating</option>
+                <option value="4.5">4.5+ Bintang</option>
+                <option value="4.0">4.0+ Bintang</option>
+                <option value="3.5">3.5+ Bintang</option>
             </select>
         </div>
+        
+        <div class="filter-advanced">
+            <div class="filter-chip" data-filter="camera">🟢 Live Kamera</div>
+            <div class="filter-chip" data-filter="verified">✅ Terverifikasi</div>
+            <div class="filter-chip" data-filter="export">🌐 Ekspor Legal</div>
+            <div class="filter-chip" data-filter="organic">🌱 Organik</div>
+        </div>
     </header>
+    
     <section class="farmers-grid" id="farmers-grid">
         <!-- Kartu toko diisi JS -->
     </section>
+    
     <footer class="footer">
         <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
     </footer>
-    <select id="languageSelect" class="lang-select">
-      <option value="id">Indonesia</option>
-      <option value="en">English</option>
-      <option value="nl">Dutch</option>
-    </select>
+    
     <script>
-    // Navbar login logic (copy dari index.html)
     document.addEventListener('DOMContentLoaded', function() {
         const user = JSON.parse(localStorage.getItem('currentUser'));
         const navUser = document.getElementById('nav-user');
@@ -186,83 +263,238 @@
         } else {
             navUser.innerHTML = `<a href="login.html" class="login-btn">Login</a>`;
         }
-
-        // Dummy data peternak
-        const farmers = [
-            {
-                name: "Lobster Nusantara",
-                location: "Jawa Barat",
-                rating: 4.5,
-                isVerified: true,
-                isCameraLive: true,
-                category: "Air Tawar",
-                // Gambar lobster air tawar asli
-                img: "https://source.unsplash.com/800x600/?lobster,pond"
-            },
-            {
-                name: "Sumatera Lobster Farm",
-                location: "Sumatera Utara",
-                rating: 4.2,
-                isVerified: false,
-                isCameraLive: false,
-                category: "Air Laut",
-                // Gambar lobster laut asli
-                img: "https://source.unsplash.com/800x600/?lobster,sea"
-            },
-            {
-                name: "Sulawesi Lobster",
-                location: "Sulawesi Selatan",
-                rating: 4.8,
-                isVerified: true,
-                isCameraLive: true,
-                category: "Air Laut",
-                // Gambar panen lobster lokal
-                img: "img/lobster-panennya.jpg"
-            }
-        ];
-
-        // Render grid peternak
-        function renderFarmers(list) {
-            const grid = document.getElementById('farmers-grid');
-            grid.innerHTML = '';
-            list.forEach(farmer => {
-                grid.innerHTML += `
-                <div class="farmer-card">
-                    <img src="${farmer.img}" 
-                         class="farmer-cover lobster-img"
-                         alt="Foto ${farmer.name}" 
-                         style="object-fit:cover;border-radius:8px;width:100%;max-height:250px;">
-                    <div class="farmer-info">
-                        <div class="farmer-name">
-                            ${farmer.name}
-                            ${farmer.isVerified ? '<span class="verified-badge">✔️</span>' : ''}
-                        </div>
-                        <div class="farmer-location">${farmer.location}</div>
-                        <div class="farmer-rating">${'⭐'.repeat(Math.floor(farmer.rating))}${farmer.rating%1>=0.5?'½':''}<span style="color:#ccc;">${'⭐'.repeat(5-Math.ceil(farmer.rating))}</span></div>
-                        <div class="camera-status">${farmer.isCameraLive ? '🟢 Live Kamera' : '🔴 Kamera Offline'}</div>
-                        <div class="farmer-category">${farmer.category}</div>
-                        <button class="lihat-toko-btn" onclick="window.location.href='detail-toko.html'">Lihat Toko</button>
-                    </div>
-                </div>
-                `;
-            });
-        }
-        renderFarmers(farmers);
-
-        // Search & filter logic
-        document.getElementById('search').addEventListener('input', function() {
-            const val = this.value.toLowerCase();
-            renderFarmers(farmers.filter(f => f.name.toLowerCase().includes(val)));
-        });
-        document.getElementById('filter-location').addEventListener('change', function() {
-            const val = this.value;
-            renderFarmers(val ? farmers.filter(f => f.location === val) : farmers);
-        });
-        document.getElementById('filter-category').addEventListener('change', function() {
-            const val = this.value;
-            renderFarmers(val ? farmers.filter(f => f.category === val) : farmers);
-        });
+        
+        loadFarmers();
+        setupEventListeners();
     });
-    </script>
+
+    function loadFarmers() {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        
+        // Get only farmers
+        const farmers = users.filter(user => user.type === 'farmer');
+        
+        // Enhance farmer data with products and stats
+        const enhancedFarmers = farmers.map(farmer => {
+            const farmerProducts = products.filter(p => p.farmerId === farmer.email);
+            const farmerOrders = orders.filter(o => o.farmerId === farmer.email);
+            
+            // Calculate stats
+            const totalSales = farmerOrders.length;
+            const totalRevenue = farmerOrders.reduce((sum, order) => sum + order.totalPrice, 0);
+            const avgRating = farmerProducts.length > 0 ? 
+                farmerProducts.reduce((sum, p) => sum + p.rating, 0) / farmerProducts.length : 0;
+            
+            return {
+                ...farmer,
+                products: farmerProducts,
+                totalSales: totalSales,
+                totalRevenue: totalRevenue,
+                avgRating: avgRating,
+                hasLiveCamera: farmer.camera === 'available',
+                isVerified: true, // All demo farmers are verified
+                hasExport: true,
+                isOrganic: true
+            };
+        });
+        
+        renderFarmers(enhancedFarmers);
+    }
+
+    function renderFarmers(farmers) {
+        const farmersContainer = document.getElementById('farmers-grid');
+        
+        if (farmers.length === 0) {
+            farmersContainer.innerHTML = `
+                <div class="no-results">
+                    <h3>😔 Tidak ada peternak ditemukan</h3>
+                    <p>Coba ubah filter pencarian Anda</p>
+                </div>
+            `;
+            return;
+        }
+        
+        farmersContainer.innerHTML = farmers.map(farmer => `
+            <div class="farmer-card" data-farmer-id="${farmer.email}">
+                <div class="farmer-cover">
+                    <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=800&q=80" alt="${farmer.business}">
+                    ${farmer.isVerified ? '<span class="verified-badge">✅ Terverifikasi</span>' : ''}
+                </div>
+                <div class="farmer-info">
+                    <h3>${farmer.business}</h3>
+                    <div class="farmer-location">
+                        <span>📍 ${farmer.location}, Indonesia</span>
+                    </div>
+                    <div class="farmer-rating">
+                        <span class="stars">${'⭐'.repeat(Math.floor(farmer.avgRating))}${'☆'.repeat(5 - Math.floor(farmer.avgRating))}</span>
+                        <span class="rating-number">(${farmer.avgRating.toFixed(1)})</span>
+                    </div>
+                    <div class="farmer-stats">
+                        <span>📊 ${farmer.totalSales} Penjualan</span>
+                        <span>👥 ${farmer.followers || 0} Pengikut</span>
+                    </div>
+                    <div class="camera-status">
+                        ${farmer.hasLiveCamera ? '🟢 Live Kamera' : '🔴 Kamera Offline'}
+                    </div>
+                    <div class="farmer-category">
+                        ${farmer.products.length} Produk Tersedia
+                    </div>
+                    <button class="view-shop-btn" onclick="viewShop('${farmer.email}')">
+                        Lihat Toko
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function setupEventListeners() {
+        // Search functionality
+        const searchInput = document.getElementById('search');
+        if (searchInput) {
+            searchInput.addEventListener('input', applyFilters);
+        }
+
+        // Filter functionality
+        const filterInputs = document.querySelectorAll('.search-filter-bar select');
+        filterInputs.forEach(input => {
+            input.addEventListener('change', applyFilters);
+        });
+
+        // Advanced filter chips
+        const filterChips = document.querySelectorAll('.filter-chip');
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', function() {
+                this.classList.toggle('active');
+                applyFilters();
+            });
+        });
+    }
+
+    function applyFilters() {
+        const searchTerm = document.getElementById('search')?.value.toLowerCase() || '';
+        const locationFilter = document.getElementById('filter-location')?.value || '';
+        const categoryFilter = document.getElementById('filter-category')?.value || '';
+        const priceFilter = document.getElementById('filter-price')?.value || '';
+        const ratingFilter = document.getElementById('filter-rating')?.value || '';
+        
+        // Get active filter chips
+        const activeChips = Array.from(document.querySelectorAll('.filter-chip.active'))
+            .map(chip => chip.textContent.trim());
+
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const products = JSON.parse(localStorage.getItem('products')) || [];
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        
+        let farmers = users.filter(user => user.type === 'farmer');
+        
+        // Apply search filter
+        if (searchTerm) {
+            farmers = farmers.filter(farmer => 
+                farmer.business?.toLowerCase().includes(searchTerm) ||
+                farmer.location?.toLowerCase().includes(searchTerm)
+            );
+        }
+
+        // Apply location filter
+        if (locationFilter && locationFilter !== 'Semua Lokasi') {
+            farmers = farmers.filter(farmer => farmer.location === locationFilter);
+        }
+
+        // Apply category filter
+        if (categoryFilter && categoryFilter !== 'Semua Jenis Lobster') {
+            const farmerProducts = products.filter(p => 
+                farmers.some(f => f.email === p.farmerId) && 
+                p.type === categoryFilter
+            );
+            const farmerIds = [...new Set(farmerProducts.map(p => p.farmerId))];
+            farmers = farmers.filter(farmer => farmerIds.includes(farmer.email));
+        }
+
+        // Apply price filter
+        if (priceFilter && priceFilter !== 'Semua Harga') {
+            const [minPrice, maxPrice] = priceFilter.split('-').map(p => parseInt(p));
+            const farmerProducts = products.filter(p => 
+                farmers.some(f => f.email === p.farmerId) && 
+                p.price >= minPrice && p.price <= maxPrice
+            );
+            const farmerIds = [...new Set(farmerProducts.map(p => p.farmerId))];
+            farmers = farmers.filter(farmer => farmerIds.includes(farmer.email));
+        }
+
+        // Apply rating filter
+        if (ratingFilter && ratingFilter !== 'Semua Rating') {
+            const minRating = parseFloat(ratingFilter);
+            const farmerProducts = products.filter(p => 
+                farmers.some(f => f.email === p.farmerId) && 
+                p.rating >= minRating
+            );
+            const farmerIds = [...new Set(farmerProducts.map(p => p.farmerId))];
+            farmers = farmers.filter(farmer => farmerIds.includes(farmer.email));
+        }
+
+        // Apply advanced filter chips
+        if (activeChips.includes('🟢 Live Kamera')) {
+            farmers = farmers.filter(farmer => farmer.hasLiveCamera);
+        }
+        if (activeChips.includes('✅ Terverifikasi')) {
+            farmers = farmers.filter(farmer => farmer.isVerified);
+        }
+        if (activeChips.includes('🌐 Ekspor Legal')) {
+            farmers = farmers.filter(farmer => farmer.hasExport);
+        }
+        if (activeChips.includes('🌱 Organik')) {
+            farmers = farmers.filter(farmer => farmer.isOrganic);
+        }
+
+        // Enhance farmer data with products and stats
+        const enhancedFarmers = farmers.map(farmer => {
+            const farmerProducts = products.filter(p => p.farmerId === farmer.email);
+            const farmerOrders = orders.filter(o => o.farmerId === farmer.email);
+            
+            const totalSales = farmerOrders.length;
+            const totalRevenue = farmerOrders.reduce((sum, order) => sum + order.totalPrice, 0);
+            const avgRating = farmerProducts.length > 0 ? 
+                farmerProducts.reduce((sum, p) => sum + p.rating, 0) / farmerProducts.length : 0;
+            
+            return {
+                ...farmer,
+                products: farmerProducts,
+                totalSales: totalSales,
+                totalRevenue: totalRevenue,
+                avgRating: avgRating,
+                hasLiveCamera: farmer.hasLiveCamera,
+                isVerified: farmer.isVerified,
+                hasExport: farmer.hasExport,
+                isOrganic: farmer.isOrganic
+            };
+        });
+
+        renderFarmers(enhancedFarmers);
+    }
+
+    function viewShop(farmerId) {
+        window.location.href = `detail-toko.html?farmer=${farmerId}`;
+    }
+
+    function clearFilters() {
+        // Reset all filter inputs
+        const searchInput = document.getElementById('search');
+        if (searchInput) searchInput.value = '';
+        
+        const filterSelects = document.querySelectorAll('.search-filter-bar select');
+        filterSelects.forEach(select => {
+            select.value = '';
+        });
+        
+        // Remove active chips
+        const activeChips = document.querySelectorAll('.filter-chip.active');
+        activeChips.forEach(chip => chip.classList.remove('active'));
+        
+        // Reload all farmers
+        loadFarmers();
+    }
+</script>
 </body>
 </html>
