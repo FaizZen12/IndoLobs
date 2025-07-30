@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Detail Produk Lobster</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <nav class="main-navbar">
+        <div class="nav-logo">🦞 IndoLobs</div>
+        <div class="nav-links">
+            <a href="index.html">Beranda</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="forum.html">Komunitas</a>
+            <a href="news.html">Edukasi</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+        <div class="nav-actions">
+            <div class="nav-user" id="nav-user"></div>
+            <button id="logoutBtn" class="logout-btn">Keluar</button>
+        </div>
+    </nav>
+    <main class="product-detail-container">
+        <section class="product-media">
+            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Lobster" class="product-img" />
+            <video controls class="product-video">
+                <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+                Video kondisi lobster tidak tersedia.
+            </video>
+        </section>
+        <section class="product-info">
+            <h1>Lobster Air Tawar Super</h1>
+            <ul class="product-spec">
+                <li><strong>Jenis:</strong> Air Tawar</li>
+                <li><strong>Ukuran:</strong> 15-20 cm</li>
+                <li><strong>Berat:</strong> 300-500 gram</li>
+                <li><strong>Umur:</strong> 8 bulan</li>
+                <li><strong>Harga:</strong> Rp 650.000 / kg</li>
+                <li><strong>Stok:</strong> 25 kg tersedia</li>
+            </ul>
+            <button id="add-to-cart" class="product-cart-btn">Tambah ke Keranjang</button>
+            <button id="wishlistBtn" class="wishlist-btn" data-id="peternak1">❤️</button>
+        </section>
+    </main>
+    <footer class="footer">
+        <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Lobster Marketplace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #f6f8fa;
+        }
+        .main-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #267a4a;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            position: relative;
+        }
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-toggle {
+            display: none;
+        }
+        .nav-hamburger {
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-links a.active {
+            text-decoration: underline;
+        }
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .logout-btn {
+            background: #fff;
+            color: #267a4a;
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1.2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .logout-btn:hover {
+            background: #f5b301;
+            color: #1a3c2b;
+        }
+        .dashboard-main {
+            max-width: 1100px;
+            margin: 2rem auto;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: none;}
+        }
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            transition: box-shadow 0.2s;
+        }
+        .stat-card:hover {
+            box-shadow: 0 4px 16px rgba(38,122,74,0.13);
+        }
+        .stat-title {
+            font-size: 1rem;
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #267a4a;
+        }
+        .dashboard-sections {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        @media (max-width: 900px) {
+            .dashboard-sections {
+                grid-template-columns: 1fr;
+            }
+        }
+        .dashboard-articles, .dashboard-wishlist {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .dashboard-articles h3, .dashboard-wishlist h3 {
+            color: #267a4a;
+            margin-bottom: 1rem;
+        }
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .article-card {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+        .article-card img {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .article-info h4 {
+            margin: 0 0 0.3rem 0;
+            font-size: 1.05rem;
+            color: #1a3c2b;
+        }
+        .article-info p {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.97rem;
+            color: #555;
+        }
+        .article-info .news-btn {
+            font-size: 0.95rem;
+            padding: 0.3rem 0.8rem;
+        }
+        .wishlist-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .wishlist-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+        }
+        .wishlist-card img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .wishlist-card .wishlist-name {
+            font-weight: bold;
+            color: #267a4a;
+        }
+        @media (max-width: 600px) {
+            .dashboard-main {
+                padding: 0 0.5rem;
+            }
+            .dashboard-articles, .dashboard-wishlist {
+                padding: 1rem 0.5rem;
+            }
+            .article-card img, .wishlist-card img {
+                width: 50px;
+                height: 40px;
+            }
+        }
+        .lang-select {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-navbar">
+        <div class="nav-logo">🦞 IndoLobs</div>
+        <div class="nav-links">
+            <a href="index.html">Beranda</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="forum.html">Komunitas</a>
+            <a href="news.html">Edukasi</a>
+            <a href="dashboard.html" class="active">Dashboard</a>
+        </div>
+        <div class="nav-user" id="nav-user">
+            <!-- Nama user atau tombol Login akan ditampilkan di sini -->
+        </div>
+      
+    </nav>
+    <main class="dashboard-main">
+        <!-- Statistik Ringkas -->
+        <section class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-title">Order Bulan Ini</div>
+                <div class="stat-value" id="stat-orders">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Toko Favorit</div>
+                <div class="stat-value" id="stat-fav">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Artikel Dibaca</div>
+                <div class="stat-value" id="stat-articles">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-title">Komentar Ditulis</div>
+                <div class="stat-value" id="stat-comments">0</div>
+            </div>
+        </section>
+        <div class="dashboard-sections">
+            <!-- Section Edukasi -->
+            <section class="dashboard-articles">
+                <h3>Artikel Terbaru</h3>
+                <div class="article-list" id="article-list">
+                    <!-- Artikel diisi JS -->
+                </div>
+            </section>
+            <!-- Section Wishlist -->
+            <aside class="dashboard-wishlist">
+                <h3>Wishlist Anda</h3>
+                <div class="wishlist-list" id="wishlist-list">
+                    <!-- Wishlist diisi JS -->
+                </div>
+            </aside>
+        </div>
+    </main>
+    <footer class="footer">
+        <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
+    </footer>
+    <script>
+    // Redirect ke halaman login jika belum ada user yang login
+    if (!localStorage.getItem("currentUser")) {
+        window.location.href = "login.html";
+    }
+
+    // Halaman publik: tampilkan nama user jika login, atau tombol Login
+    document.addEventListener('DOMContentLoaded', function() {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const navUser = document.getElementById('nav-user');
+        if (user) {
+            navUser.innerHTML = `<span>Hai, ${user.name} 👋</span>
+                <button id="logoutBtn" class="logout-btn">Logout</button>`;
+            document.getElementById("logoutBtn").addEventListener("click", function() {
+                localStorage.removeItem("currentUser");
+                window.location.href = "login.html";
+            });
+        } else {
+            navUser.innerHTML = `<a href="login.html" class="login-btn">Login</a>`;
+        }
+    });
+
+    // 4. Statistik dummy
+    document.getElementById('stat-orders').textContent = Math.floor(Math.random()*10+1);
+    document.getElementById('stat-fav').textContent = (JSON.parse(localStorage.getItem('wishlist')) || []).length;
+    document.getElementById('stat-articles').textContent = Math.floor(Math.random()*8+2);
+    document.getElementById('stat-comments').textContent = Math.floor(Math.random()*5);
+
+    // 5. Artikel terbaru dummy
+    const articles = [
+        {
+            img: "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
+            title: "Cara Memilih Bibit Lobster Unggul",
+            desc: "Panduan memilih bibit lobster sehat untuk hasil panen maksimal.",
+            link: "artikel-detail-1.html"
+        },
+        {
+            img: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80",
+            title: "Tips Pakan Lobster Efisien",
+            desc: "Strategi pemberian pakan agar lobster tumbuh cepat dan sehat.",
+            link: "artikel-detail-2.html"
+        },
+        {
+            img: "https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80",
+            title: "Legalitas Ekspor Lobster",
+            desc: "Informasi terbaru tentang regulasi dan izin ekspor lobster.",
+            link: "artikel-detail-3.html"
+        }
+    ];
+    const articleList = document.getElementById('article-list');
+    articles.slice(0,3).forEach(a => {
+        const card = document.createElement('div');
+        card.className = 'article-card';
+        card.innerHTML = `
+            <img src="${a.img}" alt="${a.title}">
+            <div class="article-info">
+                <h4>${a.title}</h4>
+                <p>${a.desc}</p>
+                <a href="${a.link}" class="news-btn">Baca Selengkapnya</a>
+            </div>
+        `;
+        articleList.appendChild(card);
+    });
+
+    // 6. Wishlist dummy dari localStorage
+    // Contoh data produk favorit: [{img, name}]
+    const dummyProducts = [
+        {id:'nusantara', img:"https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80", name:"Lobster Nusantara"},
+        {id:'sulawesi', img:"https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80", name:"Sulawesi Lobster"},
+        {id:'sumatera', img:"https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80", name:"Sumatera Lobster"}
+    ];
+    const wishlistIds = JSON.parse(localStorage.getItem('wishlist')) || [];
+    const wishlistList = document.getElementById('wishlist-list');
+    if (wishlistIds.length === 0) {
+        wishlistList.innerHTML = '<div style="color:#888;">Belum ada produk favorit.</div>';
+    } else {
+        wishlistIds.forEach(id => {
+            const prod = dummyProducts.find(p => p.id === id);
+            if (prod) {
+                const card = document.createElement('div');
+                card.className = 'wishlist-card';
+                card.innerHTML = `
+                    <img src="${prod.img}" alt="${prod.name}">
+                    <div class="wishlist-name">${prod.name}</div>
+                `;
+                wishlistList.appendChild(card);
+            }
+        });
+    }
+    </script>
+</body>
+</html>

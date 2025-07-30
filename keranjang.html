@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang & Checkout Lobster</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="main-navbar">
+        <div class="nav-logo">🦞 IndoLobs</div>
+        <div class="nav-links">
+            <a href="index.html">Beranda</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="forum.html">Komunitas</a>
+            <a href="news.html">Edukasi</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+        <div class="nav-user" id="nav-user"></div>
+    </nav>
+    <main class="cart-container">
+        <h1>Keranjang Belanja</h1>
+        <section class="cart-list">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Gambar</th>
+                        <th>Nama Produk</th>
+                        <th>Jumlah</th>
+                        <th>Harga</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    <!-- Diisi JS -->
+                </tbody>
+            </table>
+        </section>
+        <section class="cart-shipping">
+            <h2>Estimasi Ongkir Ekspor</h2>
+            <label for="shipping-country">Negara Tujuan</label>
+            <select id="negara-ekspor">
+                <option value="">Pilih Negara Tujuan</option>
+                <option value="singapore">Singapura</option>
+                <option value="japan">Jepang</option>
+                <option value="usa">Amerika Serikat</option>
+            </select>
+            <div id="ongkir-info"></div>
+            <div id="total-belanja">Total: Rp 0</div>
+        </section>
+        <section class="cart-address">
+            <h2>Data Pengiriman</h2>
+            <form id="shipping-form">
+                <label for="receiver-name">Nama Penerima</label>
+                <input type="text" id="receiver-name" required>
+                <label for="receiver-address">Alamat Lengkap</label>
+                <textarea id="receiver-address" required></textarea>
+                <label for="receiver-country">Negara Tujuan</label>
+                <input type="text" id="receiver-country" required>
+            </form>
+        </section>
+        <section class="cart-payment">
+            <h2>Metode Pembayaran</h2>
+            <select id="payment-method">
+                <option value="transfer">Transfer Bank</option>
+                <option value="ewallet">E-Wallet</option>
+                <option value="cod">COD</option>
+            </select>
+        </section>
+        <section class="cart-summary">
+            <h2>Ringkasan Pesanan</h2>
+            <div id="order-summary">
+                <!-- Diisi JS -->
+            </div>
+            <button id="pay-btn" class="cart-pay-btn">Bayar Sekarang</button>
+        </section>
+    </main>
+    <select id="languageSelect" class="lang-select">
+      <option value="id">Indonesia</option>
+      <option value="en">English</option>
+      <option value="nl">Dutch</option>
+    </select>
+    <span data-i18n="title"></span>
+    <button data-i18n="buy"></button>
+    <script src="script.js"></script>
+</body>
+</html>

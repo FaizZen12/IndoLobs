@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace Peternakan Lobster</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+        .marketplace-header {
+            background: linear-gradient(120deg, #267a4a 0%, #1e3a3a 100%);
+            color: #fff;
+            padding: 2rem 1rem 1rem 1rem;
+            text-align: center;
+            border-radius: 0 0 24px 24px;
+            margin-bottom: 2rem;
+        }
+        .search-filter-bar {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1.5rem 0 0.5rem 0;
+            flex-wrap: wrap;
+        }
+        .search-filter-bar input,
+        .search-filter-bar select {
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #267a4a;
+            font-size: 1rem;
+            min-width: 160px;
+        }
+        .farmers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+        .farmer-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(38,122,74,0.09);
+            overflow: hidden;
+            transition: box-shadow 0.2s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .farmer-card:hover {
+            box-shadow: 0 6px 24px rgba(38,122,74,0.18);
+            transform: translateY(-4px) scale(1.03);
+        }
+        .farmer-cover {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            background: #e0f7fa;
+        }
+        .farmer-info {
+            padding: 1.2rem 1rem 1rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .farmer-name {
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: #267a4a;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .verified-badge {
+            background: #f5b301;
+            color: #fff;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            padding: 0.1rem 0.5rem;
+            font-weight: bold;
+            margin-left: 0.3rem;
+        }
+        .farmer-location {
+            font-size: 0.98rem;
+            color: #1e3a3a;
+        }
+        .farmer-rating {
+            color: #f5b301;
+            font-size: 1.1rem;
+        }
+        .camera-status {
+            font-size: 0.98rem;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+        .farmer-category {
+            display: inline-block;
+            background: #267a4a;
+            color: #fff;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            padding: 0.2rem 0.7rem;
+            margin-bottom: 0.5rem;
+            margin-right: 0.5rem;
+        }
+        .lihat-toko-btn {
+            background: #f5b301;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.6rem 1.2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 0.7rem;
+            transition: background 0.2s;
+        }
+        .lihat-toko-btn:hover {
+            background: #267a4a;
+        }
+        @media (max-width: 700px) {
+            .farmers-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .marketplace-header {
+                padding: 1.2rem 0.5rem 0.7rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-navbar">
+        <div class="nav-logo">🦞 IndoLobs</div>
+        <div class="nav-links">
+            <a href="index.html">Beranda</a>
+            <a href="marketplace.html" class="active">Marketplace</a>
+            <a href="forum.html">Komunitas</a>
+            <a href="news.html">Edukasi</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+        <div class="nav-user" id="nav-user"></div>
+    </nav>
+    <header class="marketplace-header">
+        <h1>Marketplace Peternakan Lobster</h1>
+        <div class="search-filter-bar">
+            <input type="text" id="search" placeholder="Cari peternak...">
+            <select id="filter-location">
+                <option value="">Lokasi</option>
+                <option value="Jawa Barat">Jawa Barat</option>
+                <option value="Sumatera Utara">Sumatera Utara</option>
+                <option value="Sulawesi Selatan">Sulawesi Selatan</option>
+            </select>
+            <select id="filter-category">
+                <option value="">Jenis Lobster</option>
+                <option value="Air Tawar">Air Tawar</option>
+                <option value="Air Laut">Air Laut</option>
+            </select>
+        </div>
+    </header>
+    <section class="farmers-grid" id="farmers-grid">
+        <!-- Kartu toko diisi JS -->
+    </section>
+    <footer class="footer">
+        <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
+    </footer>
+    <select id="languageSelect" class="lang-select">
+      <option value="id">Indonesia</option>
+      <option value="en">English</option>
+      <option value="nl">Dutch</option>
+    </select>
+    <script>
+    // Navbar login logic (copy dari index.html)
+    document.addEventListener('DOMContentLoaded', function() {
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        const navUser = document.getElementById('nav-user');
+        if (user) {
+            navUser.innerHTML = `<span>👋 Hai, ${user.name}</span>
+                <button id="logoutBtn" class="logout-btn">Logout</button>`;
+            document.getElementById("logoutBtn").addEventListener("click", function() {
+                localStorage.removeItem("currentUser");
+                window.location.href = "login.html";
+            });
+        } else {
+            navUser.innerHTML = `<a href="login.html" class="login-btn">Login</a>`;
+        }
+
+        // Dummy data peternak
+        const farmers = [
+            {
+                name: "Lobster Nusantara",
+                location: "Jawa Barat",
+                rating: 4.5,
+                isVerified: true,
+                isCameraLive: true,
+                category: "Air Tawar",
+                // Gambar lobster air tawar asli
+                img: "https://source.unsplash.com/800x600/?lobster,pond"
+            },
+            {
+                name: "Sumatera Lobster Farm",
+                location: "Sumatera Utara",
+                rating: 4.2,
+                isVerified: false,
+                isCameraLive: false,
+                category: "Air Laut",
+                // Gambar lobster laut asli
+                img: "https://source.unsplash.com/800x600/?lobster,sea"
+            },
+            {
+                name: "Sulawesi Lobster",
+                location: "Sulawesi Selatan",
+                rating: 4.8,
+                isVerified: true,
+                isCameraLive: true,
+                category: "Air Laut",
+                // Gambar panen lobster lokal
+                img: "img/lobster-panennya.jpg"
+            }
+        ];
+
+        // Render grid peternak
+        function renderFarmers(list) {
+            const grid = document.getElementById('farmers-grid');
+            grid.innerHTML = '';
+            list.forEach(farmer => {
+                grid.innerHTML += `
+                <div class="farmer-card">
+                    <img src="${farmer.img}" 
+                         class="farmer-cover lobster-img"
+                         alt="Foto ${farmer.name}" 
+                         style="object-fit:cover;border-radius:8px;width:100%;max-height:250px;">
+                    <div class="farmer-info">
+                        <div class="farmer-name">
+                            ${farmer.name}
+                            ${farmer.isVerified ? '<span class="verified-badge">✔️</span>' : ''}
+                        </div>
+                        <div class="farmer-location">${farmer.location}</div>
+                        <div class="farmer-rating">${'⭐'.repeat(Math.floor(farmer.rating))}${farmer.rating%1>=0.5?'½':''}<span style="color:#ccc;">${'⭐'.repeat(5-Math.ceil(farmer.rating))}</span></div>
+                        <div class="camera-status">${farmer.isCameraLive ? '🟢 Live Kamera' : '🔴 Kamera Offline'}</div>
+                        <div class="farmer-category">${farmer.category}</div>
+                        <button class="lihat-toko-btn" onclick="window.location.href='detail-toko.html'">Lihat Toko</button>
+                    </div>
+                </div>
+                `;
+            });
+        }
+        renderFarmers(farmers);
+
+        // Search & filter logic
+        document.getElementById('search').addEventListener('input', function() {
+            const val = this.value.toLowerCase();
+            renderFarmers(farmers.filter(f => f.name.toLowerCase().includes(val)));
+        });
+        document.getElementById('filter-location').addEventListener('change', function() {
+            const val = this.value;
+            renderFarmers(val ? farmers.filter(f => f.location === val) : farmers);
+        });
+        document.getElementById('filter-category').addEventListener('change', function() {
+            const val = this.value;
+            renderFarmers(val ? farmers.filter(f => f.category === val) : farmers);
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="title">Login - Lobster Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">🦞 IndoLobs</div>
+        <div class="nav-links">
+            <a href="index.html">Beranda</a>
+            <a href="register.html">Daftar</a>
+        </div>
+    </nav>
+    <main class="auth-main">
+        <div class="auth-container">
+            <h2 data-i18n="login">Login</h2>
+            <form id="login-form">
+                <label for="login-email" data-i18n="email">Email</label>
+                <input type="email" id="login-email" required>
+                <label for="login-password" data-i18n="password">Password</label>
+                <input type="password" id="login-password" required>
+                <button type="submit" data-i18n="login">Login</button>
+            </form>
+            <div class="auth-link">
+                Belum punya akun? <a href="register.html">Daftar</a>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div>Lobster Marketplace &copy; 2025</div>
+    </footer>
+    <select id="languageSelect" class="lang-select">
+      <option value="id">Indonesia</option>
+      <option value="en">English</option>
+      <option value="nl">Dutch</option>
+    </select>
+    <script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value.trim().toLowerCase();
+        const password = document.getElementById('login-password').value;
+        if (!email || !password) {
+            alert('Semua field wajib diisi!');
+            return;
+        }
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u => u.email === email && u.password === password);
+        if (user) {
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            window.location.href = 'dashboard.html';
+        } else {
+            alert('Email atau password salah');
+        }
+    });
+    </script>
+</body>
+</html>

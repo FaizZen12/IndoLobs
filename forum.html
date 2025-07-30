@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Komunitas Lobster - Forum</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: #f5f7fa;
+        }
+        .forum-main {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .forum-form {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(38,122,74,0.09);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .forum-form textarea {
+            width: 100%;
+            min-height: 60px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 0.7rem;
+            font-size: 1rem;
+            resize: vertical;
+        }
+        .forum-form input[type="file"] {
+            margin-top: 0.5rem;
+        }
+        .forum-form .forum-btn {
+            background: #267a4a;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 1.2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            align-self: flex-end;
+            transition: background 0.2s;
+        }
+        .forum-form .forum-btn:hover {
+            background: #f5b301;
+            color: #1a3c2b;
+        }
+        .forum-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .forum-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(38,122,74,0.09);
+            padding: 1.2rem 1rem 1rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+            position: relative;
+            animation: fadeIn 0.7s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: none;}
+        }
+        .forum-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .forum-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #e0f7fa;
+        }
+        .forum-user {
+            font-weight: bold;
+            color: #267a4a;
+        }
+        .forum-date {
+            font-size: 0.95rem;
+            color: #888;
+        }
+        .forum-category {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: bold;
+            border-radius: 6px;
+            padding: 0.2rem 0.7rem;
+            margin-left: 0.5rem;
+        }
+        .cat-budidaya { background: #e3fcec; color: #267a4a; }
+        .cat-legalitas { background: #fff3e0; color: #f5b301; }
+        .cat-ekspor { background: #e0f7fa; color: #1e3a3a; }
+        .forum-content {
+            font-size: 1.05rem;
+            color: #1a3c2b;
+            margin-bottom: 0.3rem;
+        }
+        .forum-img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 10px;
+            margin: 0.5rem 0;
+            object-fit: cover;
+        }
+        .forum-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        .forum-actions button {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            cursor: pointer;
+            color: #e74c3c;
+            transition: color 0.2s;
+        }
+        .forum-actions button.liked {
+            color: #f5b301;
+        }
+        .forum-actions .comment-btn {
+            color: #267a4a;
+        }
+        .forum-comments {
+            margin-top: 0.7rem;
+            padding-left: 1.5rem;
+            border-left: 2px solid #e0f7fa;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .forum-comment {
+            font-size: 0.97rem;
+            color: #555;
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+        }
+        @media (max-width: 600px) {
+            .forum-main {
+                padding: 0 0.2rem;
+            }
+            .forum-card {
+                padding: 1rem 0.5rem 0.7rem 0.5rem;
+            }
+            .forum-img {
+                max-width: 100%;
+            }
+        }
+        .comment-section {
+            max-width: 700px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(38,122,74,0.09);
+            padding: 1.5rem;
+        }
+        .comment-section h3 {
+            margin-bottom: 1rem;
+            color: #267a4a;
+        }
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+        .comment-form textarea {
+            width: 100%;
+            min-height: 40px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 0.5rem;
+            font-size: 1rem;
+            resize: vertical;
+        }
+        .comment-form .forum-btn {
+            align-self: flex-end;
+        }
+        #commentList {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .comment-item {
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        .comment-item b {
+            color: #267a4a;
+        }
+    </style>
+</head>
+<body>
+    <nav class="main-navbar">
+        <div class="nav-logo">🦞 IndoLobs</div>
+        <div class="nav-links">
+            <a href="index.html">Beranda</a>
+            <a href="marketplace.html">Marketplace</a>
+            <a href="forum.html" class="active">Komunitas</a>
+            <a href="news.html">Edukasi</a>
+            <a href="dashboard.html">Dashboard</a>
+        </div>
+        <div class="nav-user" id="nav-user"></div>
+    </nav>
+    <main class="forum-main">
+        <!-- Form Post -->
+        <form class="forum-form" id="forumForm">
+            <textarea id="postText" placeholder="Apa yang ingin kamu bagikan hari ini?" required></textarea>
+            <input type="file" id="postImg" accept="image/*">
+            <select id="postCategory" required>
+                <option value="">Pilih Kategori</option>
+                <option value="Budidaya">Budidaya</option>
+                <option value="Legalitas">Legalitas</option>
+                <option value="Ekspor">Ekspor</option>
+            </select>
+            <button type="submit" class="forum-btn">Kirim</button>
+        </form>
+        <!-- Feed Komunitas -->
+        <section class="forum-feed" id="forumFeed">
+            <!-- Dummy post diisi JS -->
+        </section>
+    </main>
+    <section class="comment-section">
+        <h3>Komentar</h3>
+        <form id="commentForm" class="comment-form">
+            <textarea id="commentText" placeholder="Tulis komentar..." required></textarea>
+            <button type="submit" class="forum-btn">Kirim</button>
+        </form>
+        <div id="commentList"></div>
+    </section>
+    <footer class="footer">
+        <div>Lobster Marketplace &copy; 2025 | Made in Indonesia</div>
+    </footer>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Navbar login logic
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    const navUser = document.getElementById('nav-user');
+    if (user) {
+        navUser.innerHTML = `<span>👋 Hai, ${user.name}</span>
+            <button id="logoutBtn" class="logout-btn">Logout</button>`;
+        document.getElementById("logoutBtn").addEventListener("click", function() {
+            localStorage.removeItem("currentUser");
+            window.location.href = "login.html";
+        });
+    } else {
+        navUser.innerHTML = `<a href="login.html" class="login-btn">Login</a>`;
+    }
+
+    // Dummy posts (gunakan id unik)
+    let posts = [
+        {
+            id: "post1",
+            user: "Faiz",
+            avatar: "https://randomuser.me/api/portraits/men/32.jpg",
+            date: "29 Juli 2025",
+            category: "Budidaya",
+            text: "Halo semua! Ada tips agar lobster cepat besar?",
+            img: "",
+        },
+        {
+            id: "post2",
+            user: "Rina",
+            avatar: "https://randomuser.me/api/portraits/women/44.jpg",
+            date: "28 Juli 2025",
+            category: "Legalitas",
+            text: "Bagaimana proses izin ekspor lobster tahun ini?",
+            img: "https://images.unsplash.com/photo-1465101178521-c1a4c8a0a8b7?auto=format&fit=crop&w=400&q=80",
+        }
+    ];
+
+    // Load likes dari localStorage
+    let likes = JSON.parse(localStorage.getItem('likes')) || [];
+    // Load comments dari localStorage
+    let comments = JSON.parse(localStorage.getItem('comments')) || [];
+
+    // Render feed komunitas
+    function renderFeed() {
+        const feed = document.getElementById('forumFeed');
+        feed.innerHTML = '';
+        posts.forEach(post => {
+            let catClass = post.category === "Budidaya" ? "cat-budidaya" :
+                           post.category === "Legalitas" ? "cat-legalitas" : "cat-ekspor";
+            // Hitung jumlah like
+            let likeCount = likes.filter(l => l === post.id).length;
+            // Komentar untuk post ini
+            let postComments = comments.filter(c => c.postId === post.id);
+            feed.innerHTML += `
+            <div class="forum-card" data-id="${post.id}">
+                <div class="forum-header">
+                    <img src="${post.avatar}" class="forum-avatar" alt="${post.user}">
+                    <div>
+                        <span class="forum-user">${post.user}</span>
+                        <span class="forum-category ${catClass}">${post.category}</span><br>
+                        <span class="forum-date">${post.date}</span>
+                    </div>
+                </div>
+                <div class="forum-content">${post.text}</div>
+                ${post.img ? `<img src="${post.img}" class="forum-img" alt="post-img">` : ""}
+                <div class="forum-actions">
+                    <button class="like-btn ${likes.includes(post.id) ? 'liked' : ''}" data-id="${post.id}">❤️ ${likeCount}</button>
+                </div>
+                <div class="forum-comments">
+                    ${postComments.map(c=>`
+                        <div class="comment-card">
+                            <div class="comment-info">
+                                <span class="comment-user">${c.user}</span>
+                                <span class="comment-time">${c.time}</span>
+                                <div>${c.text}</div>
+                            </div>
+                            <button class="comment-like ${c.likedBy && c.likedBy.includes(user?.email) ? 'liked' : ''}" data-cid="${c.cid}">❤️ ${c.likes||0}</button>
+                        </div>
+                    `).reverse().join('')}
+                </div>
+                <form class="comment-form" data-postid="${post.id}">
+                    <textarea placeholder="Tulis komentar..." required></textarea>
+                    <button type="submit" class="forum-btn">Kirim</button>
+                </form>
+            </div>
+            `;
+        });
+    }
+    renderFeed();
+
+    // Like post
+    document.getElementById('forumFeed').addEventListener('click', function(e) {
+        if (e.target.classList.contains('like-btn')) {
+            const postId = e.target.getAttribute('data-id');
+            if (likes.includes(postId)) {
+                likes = likes.filter(l => l !== postId);
+            } else {
+                likes.push(postId);
+            }
+            localStorage.setItem('likes', JSON.stringify(likes));
+            renderFeed();
+        }
+        // Like komentar
+        if (e.target.classList.contains('comment-like')) {
+            const cid = e.target.getAttribute('data-cid');
+            comments = comments.map(c => {
+                if (c.cid === cid) {
+                    c.likes = (c.likes || 0) + (c.likedBy && c.likedBy.includes(user?.email) ? -1 : 1);
+                    c.likedBy = c.likedBy || [];
+                    if (c.likedBy.includes(user?.email)) {
+                        c.likedBy = c.likedBy.filter(u => u !== user?.email);
+                    } else if (user?.email) {
+                        c.likedBy.push(user.email);
+                    }
+                }
+                return c;
+            });
+            localStorage.setItem('comments', JSON.stringify(comments));
+            renderFeed();
+        }
+    });
+
+    // Komentar per post
+    document.getElementById('forumFeed').addEventListener('submit', function(e) {
+        if (e.target.classList.contains('comment-form')) {
+            e.preventDefault();
+            const postId = e.target.getAttribute('data-postid');
+            const text = e.target.querySelector('textarea').value.trim();
+            if (!text) return;
+            const now = new Date();
+            const time = now.toLocaleString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+            const cid = 'c' + now.getTime() + Math.floor(Math.random()*1000);
+            comments.unshift({
+                cid,
+                postId,
+                user: user ? user.name : "Anonim",
+                text,
+                time,
+                likes: 0,
+                likedBy: []
+            });
+            localStorage.setItem('comments', JSON.stringify(comments));
+            renderFeed();
+        }
+    });
+});
+</script>
+</body>
+</html>

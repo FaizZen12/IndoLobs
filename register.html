@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Akun - Lobster Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo">🦞 IndoLobs</div>
+        <div class="nav-links">
+            <a href="index.html">Beranda</a>
+            <a href="login.html">Login</a>
+        </div>
+    </nav>
+    <main class="auth-main">
+        <div class="auth-container">
+            <h2>Daftar Akun</h2>
+            <form id="register-form">
+                <label for="reg-name">Nama</label>
+                <input type="text" id="reg-name" required>
+                <label for="reg-email">Email</label>
+                <input type="email" id="reg-email" required>
+                <label for="reg-password">Password</label>
+                <input type="password" id="reg-password" required>
+                <button type="submit">Daftar</button>
+            </form>
+            <div class="auth-link">
+                Sudah punya akun? <a href="login.html">Login</a>
+            </div>
+        </div>
+    </main>
+    <footer class="footer">
+        <div>Lobster Marketplace &copy; 2025</div>
+    </footer>
+    <script>
+    document.getElementById('register-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('reg-name').value.trim();
+        const email = document.getElementById('reg-email').value.trim().toLowerCase();
+        const password = document.getElementById('reg-password').value;
+        if (!name || !email || !password) {
+            alert('Semua field wajib diisi!');
+            return;
+        }
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        if (users.find(u => u.email === email)) {
+            alert('Email sudah digunakan');
+            return;
+        }
+        users.push({ name, email, password });
+        localStorage.setItem('users', JSON.stringify(users));
+        alert('Registrasi berhasil!');
+        window.location.href = 'login.html';
+    });
+    </script>
+    <select id="languageSelect" class="lang-select">
+      <option value="id">Indonesia</option>
+      <option value="en">English</option>
+      <option value="nl">Dutch</option>
+    </select>
+    <span data-i18n="title"></span>
+    <button data-i18n="buy"></button>
+</body>
+</html>
